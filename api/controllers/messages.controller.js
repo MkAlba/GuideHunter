@@ -47,6 +47,7 @@ module.exports.checkMessages = (req, res, next) => {
           conversations[user.id].messages.push(message)
         } else {
           conversations[user.id] = {
+            id: user.id,
             user : user,
             messages : [
               message
@@ -57,8 +58,8 @@ module.exports.checkMessages = (req, res, next) => {
       },{})
       
       
-      console.log(conversations)
-      res.status(201).json(JSON.stringify(conversations))
+      
+      res.status(201).json(Object.values(conversations))
       
       
     })

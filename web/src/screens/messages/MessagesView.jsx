@@ -1,4 +1,6 @@
-import MessageList from './../../components/messages/MessageList';
+
+import ConversationList from './../../components/messages/ConversationList';
+
 
 
 
@@ -9,7 +11,7 @@ function MessagesView() {
   return (
     <div >
 
-<MessageList />
+<ConversationList />
 
     </div>
 

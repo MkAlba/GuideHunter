@@ -7,16 +7,17 @@ const passport = require('passport');
 module.exports.list = (req, res, next) => {
 
    const criteria = {}
-  const { search } = req.query;
+  const { search, languages } = req.query;
   console.log(req.query)
 
   
   if (search) {
     criteria.name = new RegExp(search, 'i');
-    criteria.languages = new RegExp(search, 'i');
-    console.log(criteria.languages)
-    
   }
+
+  /*if(languages) {
+      criteria.languages = 
+  }*/
     Guide.find(criteria) 
     
     .then(guides => {

@@ -2,20 +2,15 @@ import { Link } from 'react-router-dom'
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthStore';
 
-import Section from './../../components/section/section';
 
 
 
 
 
-function MessageItem(props) {
 
-  const { user } = useContext(AuthContext);
-const  conversation = Object.values(props) 
+function ConversationItem({conversation}) {
 
-const id = conversation[0]
-console.log(id)
-  
+
   
   return (
                             
@@ -40,4 +35,4 @@ console.log(id)
 }
 
 
-export default MessageItem;
+export default ConversationItem;

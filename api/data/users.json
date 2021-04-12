@@ -1,0 +1,30 @@
+[
+    {
+        "userName": "Carlos",
+        "email": "carlos@gmail.com",
+        "phoneNumber": 625214125,
+        "avatar": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F125685779%2F31424710869%2F1%2Foriginal.20210209-233636?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2466%2C1233&s=de63ea93f293308a9f07ad5cb502b1b4"
+        
+    },
+    {
+        "userName": "Julio",
+        "email": "julio@gmail.com",
+        "phoneNumber": 669252141,
+        "avatar": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F125752751%2F12602525447%2F1%2Foriginal.20210210-154544?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=01c202376a71d8e53e004d0890f5af6f"
+        
+    },
+    {
+        "userName": "Lucas",
+        "email": "lucas@gmail.com",
+        "phoneNumber": 625554125,
+        "avatar": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F116837057%2F321310090885%2F1%2Foriginal.20201105-075340?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C2160%2C1080&s=2bfd614ae913d4186ea38bf126ab3be4"
+        
+    },
+    {
+        "userName": "Mateo",
+        "email": "mateo@gmail.com",
+        "phoneNumber": 633314125,        
+        "avatar": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F113007895%2F464627700405%2F1%2Foriginal.20200929-132616?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C115%2C1274%2C637&s=565e2e572e9e5c65f03421ff9cb75bb8"
+        
+    }
+]

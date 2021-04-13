@@ -15,7 +15,9 @@ import Home from './components/home/HomeGuides';
 import Xat from './components/xat/Xat';
 import UsersProfile from './screens/users/UsersProfile';
 import AuthCallback from './screens/users/AuthCallback';
-import MessagesView from './screens/messages/MessagesView';
+import Conversations from './screens/messages/Conversations';
+import ConversationDetail from './components/messages/ConversationDetail';
+
 
 
 
@@ -45,7 +47,8 @@ function App() {
           <Route exact path="/tours" component={Tours} />
           <Route exact path="/tours/:id" component={TourAlone} />
 
-          <Route exact path="/messages" component={MessagesView} />
+          <Route exact path="/messages" component={Conversations} />
+          <Route exact path="/messages/:id" component={ConversationDetail} />
           
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={UserForm} />

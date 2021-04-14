@@ -42,13 +42,14 @@ const router = require('./config/routes.config');
 
 
 app.use('/api', router)
+app.get('/*', (req, res)=> {
+  res.sendFile(`${__dirname}/react-app/index.html`)
+})
 
 /** Handle Errors */
 
 //
-app.use((req, res, next) => {
-  next(createError(404, 'Path not found'))
-})
+
 
 
 

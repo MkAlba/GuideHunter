@@ -5,7 +5,6 @@ import Login from '../login/login'
 import React from 'react'
 import { logout } from '../../services/users.service'
 import { useContext } from 'react'
-
 import { AuthContext } from './../contexts/AuthStore';
 
 
@@ -27,15 +26,17 @@ function Navbar() {
   return (
 
     <nav className="navbar top-fix  navbar-expand-lg navbar-light " id="mainNav">
-      <div className="container">
+      <div className="container" >
+      <div>
         <img src={logo} alt="Company" width="110" className="d-inline-block align-middle me-4" />
+
         <button className="navbar-toggler  text-black" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a className="navbar-brand js-scroll-trigger" href="/home">Guides Hunter</a>
 
-          <a className="navbar-brand js-scroll-trigger" href="/home">Guides Hunter</a>
-
+        </div>   
+        <div className="collapse navbar-collapse" className="inline-block align-middle "id="navbarTogglerDemo01">
 
           <ul className="navbar-nav ml-auto">
             <li className="nav-item me-2"><NavLink className="nav-link " activeClassName="active" to="/guides">Guides</NavLink></li>

@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 const router = express.Router();
 const passport = require('passport');
 const GOOGLE_SCOPES = ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile']
@@ -79,6 +80,9 @@ router.get('/authenticate/google/ghunter', userController.loginWithGoogle) ///
 router.get('/search/', searchController.search)
 
 
+router.use((req, res, next) => {
+    next(createError(404, 'Path not found'))
+  })
 
 
 

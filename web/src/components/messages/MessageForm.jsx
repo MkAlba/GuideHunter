@@ -33,8 +33,8 @@ export const MessageForm = () => {
   
   const sendMessage = e => { 
     
-    const guideId = params
-    const userId = user.id
+    const guideId = params 
+    //const userId = user.id
    
    create(newMessage, user, guideId )
    .then(res => {     

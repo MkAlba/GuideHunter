@@ -3,6 +3,8 @@ import { useHistory, useParams } from "react-router-dom"
 import { useState, useEffect } from 'react';
 import { detail } from '../../services/tours-service';
 import moment from 'moment';
+import { MessageForm } from './../messages/MessageForm';
+
 
 import {
   Card,
@@ -14,6 +16,7 @@ import {
 } from "reactstrap"
 
 import Stars from "../Stars"
+
 
 
 
@@ -64,7 +67,7 @@ function TourDetail(props) {
   } else {
     
     return (
-        
+        <div>
         <Card  className="d-flex align-items-center">
           <div className="card-img-top overflow-hidden gradient-overlay">
             <img
@@ -129,9 +132,14 @@ function TourDetail(props) {
           </CardText>
             </div>
           </CardBody>
-        </Card>
 
      
+
+        </Card>
+
+          <MessageForm 
+          /> 
+          </div>
     )
   }
 }

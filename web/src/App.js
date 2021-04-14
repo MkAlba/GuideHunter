@@ -17,6 +17,7 @@ import UsersProfile from './screens/users/UsersProfile';
 import AuthCallback from './screens/users/AuthCallback';
 import Conversations from './screens/messages/Conversations';
 import ConversationDetail from './components/messages/ConversationDetail';
+import Footer from './components/footer/Footer';
 
 
 
@@ -48,7 +49,7 @@ function App() {
           <Route exact path="/tours/:id" component={TourAlone} />
 
           <Route exact path="/messages" component={Conversations} />
-          <Route exact path="/messages/:id" component={ConversationDetail} />
+          <Route exact path="/messages/detail" component={ConversationDetail} />
           
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={UserForm} />
@@ -62,7 +63,8 @@ function App() {
           <Redirect to="/home" />
 
         </Switch>
-  
+         <Footer />
+
       </AuthStore>
     </Router>
 

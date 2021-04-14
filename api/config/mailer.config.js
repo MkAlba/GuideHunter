@@ -48,7 +48,7 @@ module.exports.sendQuestionMail = (email, client, subject, day, hour, duration, 
       // }]
     })
 
-    .then(() => {})
+    .then(() => { })
     .catch(console.error);
 };
 
@@ -97,7 +97,7 @@ module.exports.sendQuestionMail = (email, client, subject, day, hour, duration, 
 module.exports.sendForgotMail = (token, email) => {
 
   console.log('trasnport:', token);
- 
+
   console.log('mail:', email);
 
   transport
@@ -105,9 +105,9 @@ module.exports.sendForgotMail = (token, email) => {
       to: email,
       from: `Cita Previa Reset<${user}>`,
       subject: 'Password Reset',
-      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account 
+      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account
         Please click on the following link, or paste this into your browser to complete the process
-       
+
         <a href=${appUrl}/reset?token=${token} style="padding: 10px 20px; color: white; background-color: pink; border-radius: 5px;">Click here</a>`
           })
 
@@ -115,7 +115,7 @@ module.exports.sendForgotMail = (token, email) => {
       console.log('Forgot email sent');
     })
     .catch(console.error);
-  
+
 }
 
 

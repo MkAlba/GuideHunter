@@ -17,7 +17,7 @@ module.exports.message = (req, res, next) => {
     {
       user: req.body.userId.id,
       message: req.body.message.message,
-      guide: req.body.guideId.id,
+      guide: req.body.guideId.id
     }
   )
 
@@ -28,8 +28,11 @@ module.exports.message = (req, res, next) => {
 
 
 module.exports.checkMessages = (req, res, next) => {
+  
 
   const checkId = req.user.id
+
+console.log(checkId)
 
   Message.find({
     $and: [
@@ -40,9 +43,11 @@ module.exports.checkMessages = (req, res, next) => {
   })
     .populate('user tour guide')
     .then(messages => {    
-
+      console.log(messages)
       const conversations = messages.reduce((conversations, message)=>{
+        
         const user = message.user.id === checkId ? message.guide : message.user;
+        
         if(conversations[user.id]) {
           conversations[user.id].messages.push(message)
         } else {
@@ -67,3 +72,9 @@ module.exports.checkMessages = (req, res, next) => {
     .catch(next)
 }
 
+
+module.exports.detail = (req, res, next) => { 
+  Message.findById(req.params.id)
+  .then(guide => res.json(guide))
+  .catch(next)    
+}

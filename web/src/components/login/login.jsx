@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Button } from "reactstrap";
 
 
-import { useHistory, useParams } from "react-router"; //location cuando ya he cambiado de página tomar decisiones
+import { useHistory, useLocation } from "react-router"; //location cuando ya he cambiado de página tomar decisiones
 import { login } from "../../services/users.service";
 import { AuthContext } from '../contexts/AuthStore';
 
@@ -14,12 +14,14 @@ import { AuthContext } from '../contexts/AuthStore';
 
 function Login(props) {
 
-  const history = useHistory()
-  const params = useParams()
-  const { onUserChange } = useContext(AuthContext)
 
+  const history = useHistory();
+  const location = useLocation();
+  const { onUserChange } = useContext(AuthContext);
+
+  console.log(location.state)
   const [data, setData] = useState({
-    email: params.state?.params.state.email || '',
+    email: location.state?.email || '',
     password: ''
   })
 
@@ -36,6 +38,7 @@ function Login(props) {
       const user = await login(data.email, data.password)
       onUserChange(user)
       props.onHide()
+      
       history.replace('/home')
 
     } catch (error) {
@@ -45,20 +48,21 @@ function Login(props) {
   }
 
   const socialLoginUrl = `${process.env.REACT_APP_API_BASE_URL}/authenticate/google`
-
+  const open = location.state?.show
   return (
     <Modal
       {...props}
+      isOpen={location.state?.isOpen}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header isOpen={location.state?.isOpen} closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Login
             </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body isOpen={location.state?.isOpen} >
         <div className="col-12 col-sm-4 mx-auto">
           {error && (
             <div className="alert alert-danger" role="alert">

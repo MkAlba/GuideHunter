@@ -28,7 +28,7 @@ const storage = require('../config/storage.config');
 router.post('/guides', secure.isAuthenticated, storage.single('avatar'), guideController.create); 
 router.get('/guides',  guideController.list); 
 router.get('/guides/:id',  guideController.detail); 
-router.put('/guides/:id',secure.isAuthenticated,  secure.isAuthenticated, storage.single('avatar'), guideController.update); //secure.isAuthenticated,
+router.put('/guides/:id', checkRole.isGuide,  secure.isAuthenticated, storage.single('avatar'), guideController.update); //secure.isAuthenticated,
 router.delete('/guides/:id', checkRole.isGuide, secure.isAuthenticated, storage.single('avatar'), storage.array('images', 6), guideController.delete);//secure.isAuthenticated,
 
 
@@ -59,6 +59,7 @@ router.delete('/users/:id', secure.isAuthenticated, storage.single('avatar'), us
 
 router.post('/message', messageController.message);
 router.get('/messages', secure.isAuthenticated, messageController.checkMessages);
+router.post('/messages/:id/read', secure.isAuthenticated, messageController.read);
 
 //router.get('/guides/me/messages',  secure.isAuthenticated,  messageController.chat);
 //router.get('/guides/me/message/check/:id', secure.isAuthenticated, messageController.checkMessage);

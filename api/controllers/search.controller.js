@@ -10,13 +10,24 @@ const Messages = require('../models/message.model');
 
 module.exports.search = async (req, res, next) => {
 
-  console.log(req.query)
-  console.log(req.params)
+ // console.log(req.query)
+  //console.log(req.params)
 
-  let { keyword } = req.query
+  
+  let { keyword, languages } = req.query
+  
+  if(languages) {guide.languages = Object.values(languages)}
+  console.log(1111111)
+  console.log(guide.languages)
+
   if (keyword === undefined) { keyword = '' }
-  let guides = []
-  let tours = []
+  
+
+  
+  
+  //let guides = []
+  //let tours = []
+
   try {
     
 
@@ -24,6 +35,7 @@ module.exports.search = async (req, res, next) => {
       $or: [
         { experience: { $regex: keyword, $options: "i" } },
         { name: { $regex: keyword, $options: "i" } }]
+        
     })
       .populate('tours')
       .sort('-1')

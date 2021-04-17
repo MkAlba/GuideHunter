@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Feed, Icon } from 'semantic-ui-react';
-import { useHistory } from 'react-router';
+import { Card, Feed, Icon} from 'semantic-ui-react';
+import {  useParams } from "react-router";
+
 
 import ConversationModal from './ConversationModal';
 
@@ -10,18 +11,21 @@ const moment = require('moment');
 
 function ConversationItem({ conversation }) {
 
-  const history = useHistory();
-
-  const [open, setOpen] = React.useState(false)
+  const params = useParams(); 
+ 
 
   const channel = Object.values(conversation)
 
-  console.log(channel)
-
   const userConversation = channel[1]
 
-
+  
   const messages = channel[2]
+ 
+  let messagesToRead = messages.some(message => !message.read_check)
+
+  let messagesRead = messages.filter(message => message.read_check === true)
+
+  console.log(messagesRead)
 
   messages.sort((a, b) => {
     let da = new Date(a.createdAt),
@@ -29,17 +33,14 @@ function ConversationItem({ conversation }) {
     return db - da;
   })
 
+
   return (
-
+    
     <div>
-
-
 
       {channel &&
 
-
         <div key={conversation.id}>
-
 
           <Card>
 
@@ -50,25 +51,36 @@ function ConversationItem({ conversation }) {
               <Feed>
                 <Feed.Event>
                   <Feed.Label image={userConversation.avatar} />
-                  <Feed.Content>Last Message
-                      <Feed.Date content={moment(conversation.createdAt).startOf('hour').fromNow()} className="mt-0 mb-3" />
 
-                    <Feed.Summary>
-                      {messages.length > 7 
-                        ? messages.map(message => (
-                          
-                          <div className="mt-1 " key={message.id}>
-                            
-                            {message.message}
-                          </div>
-                          ))
-                            : messages.map(message => (
+                { messagesToRead &&
+               <Link
+                to= {{
+                  pathname: `/messages/${conversation.id}/read`,
+                  state : {userConversation, messages}
+                 
+              }}>
+                
+                 <Icon name="envelope outline" size="big"/>
+                
+                 </Link>
+                }
+
+
+                  <Feed.Content> Click to read your new message
+                      <Feed.Date content={moment(conversation.createdAt).startOf('hour').fromNow()} className="mt-0 mb-3" />
+                    <>
+
+                    <Feed.Content> Old messages
+                    </Feed.Content>
+
+                    { messagesRead.map(message => (
                             <div className="mt-1 " key={message.id}>
                               {message.message}
                             </div>
-                          ))
-                      }
-                    </Feed.Summary>
+
+                          ))}
+                  
+                    </>
                   </Feed.Content>
                 </Feed.Event>
 
@@ -86,10 +98,10 @@ function ConversationItem({ conversation }) {
         </div>
 
 
-
       }
 
     </div>
+    
   )
 
 
@@ -97,6 +109,19 @@ function ConversationItem({ conversation }) {
 
 
 export default ConversationItem;
+
+
+
+/*{ messages.map(message => (
+                            <div className="mt-1 " key={message.id}>
+                              {message.message}
+                            </div>
+
+                          ))}*/
+
+
+
+                          
 /*const conversationsAsGuide = Object.values(message).filter(message => (message.user.id === channel[0]))
 
   conversationsAsGuide.sort((a, b) => {

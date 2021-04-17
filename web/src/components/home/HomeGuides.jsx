@@ -52,7 +52,7 @@ const HomepageHeading = ({ mobile }) => (
       }}
     />
     <Button animated  size='huge'
-    color='grey'
+    color='black'
     as={Link} to='/guides'>
       <Button.Content visible>Discover our Team</Button.Content>
       <Button.Content hidden>
@@ -94,7 +94,7 @@ class DesktopContainer extends Component {
             style={{ 
               minHeight: 700, 
               padding: '1em 0em',
-              backgroundImage: `url("https://res.cloudinary.com/dnbkitbqa/image/upload/v1618422854/GuidesHunter/sfwwqgp6jhtew3zwt1wj.jpg")`
+              backgroundImage: `url("https://res.cloudinary.com/dnbkitbqa/image/upload/v1618478330/GuidesHunter/tvb5iqet7lz28pzomt4r.jpg")`
               }}
               vertical
             

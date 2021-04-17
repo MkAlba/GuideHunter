@@ -1,6 +1,6 @@
 import http from './base-api-service';
 
-const list = (search) => http.get('/guides', {params: {search}})
+const list = (search, languages) => http.get('/guides', {params: {search, languages}})
 
 const detail = (id) =>  http.get(`/guides/${id}`)
   
@@ -19,8 +19,9 @@ const remove = (id) => http.delete(`/guides/${id}`)
  const update = (guide) => {
 
 
+    console.log('bbbbbbb')
 console.log(guide)
-http.put(`/guides`, guide)
+http.put(`/guides/${guide.id}`, guide)
 }   
 
 const service = {

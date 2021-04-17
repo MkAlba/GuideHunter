@@ -5,10 +5,10 @@ import guidesService from '../../../services/guides-service';
 import {
   Input,
   FormText,
-  Button
+  
 } from 'reactstrap';
 import { AuthContext } from './../../contexts/AuthStore';
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Container, Divider, Button } from "semantic-ui-react";
 
 import Acceptation from './Acceptation';
 
@@ -17,15 +17,6 @@ import Acceptation from './Acceptation';
 const constants = require('../../../constantsWeb')
 
 
-//import flags from './../../../services/flags-service';
-
-
-
-
-/*phoneNumber: '',
-experience: '',
-image: '',
-languages: [],*/
 
 const validations = {
 
@@ -88,7 +79,7 @@ const validations = {
 }
 
 
-function GuideForm({ guide: guideToEdit = {}, language }) {
+function GuideForm({ guide: guideToEdit = {}, languages }) {
 
 
   const history = useHistory();
@@ -149,17 +140,16 @@ function GuideForm({ guide: guideToEdit = {}, language }) {
   }
 
 
-  const handleSubmit = async (event, result) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-
     if (isValid()) {  //si no hay errores entonces creamos al guía
-
+      console.log('aaaaaaaaa')
       try {
-        const guideData = state.guide;
-
-        // guideData.languages = guideData.languages.split(',').map(language => language.trim()) || [];
-
+        const guideData = {...state.guide};
+        console.log(guideData)
+        guideData.languages = guideData.languages.map(language => language.trim()) || [];
+        console.log(guideData)
         const guide = guideData.id ? await guidesService.update(guideData) : await guidesService.create(guideData);
         history.push(`/guides/${guide.id}`);
 
@@ -225,7 +215,7 @@ function GuideForm({ guide: guideToEdit = {}, language }) {
 
   const isValid = () => {  //funcion que comprueba que no hay errores
     const { errors } = state;
-    console.log(state)
+    console.log(errors)
     return !Object.keys(errors).some(error => errors[error]);
   }
 
@@ -235,8 +225,10 @@ function GuideForm({ guide: guideToEdit = {}, language }) {
 
 
   return (
-    <>
-      <div className="container mt-4 ms-4 me-4">
+    <Container>
+      
+      <div className="container mt-5 ms-4 me-4">
+      { user?.role === 'user' && 
         <div className="row">
           <div class="col">
             <h5 className="fw-bolder" >How it works?</h5>
@@ -249,8 +241,9 @@ function GuideForm({ guide: guideToEdit = {}, language }) {
             <p>Finally you could have direct contact with customers </p>
           </div>
 
-        </div>
+        </div> }
       </div>
+      <Divider horizontal>Guide Details</Divider>
       <div className="container mt-4 ms-4 me-4" >
         <form onSubmit={handleSubmit} >
           <div className="row g-2 mt-2 mb-3">
@@ -353,6 +346,7 @@ function GuideForm({ guide: guideToEdit = {}, language }) {
                   options={constants.COUNTRY_OPTIONS}
                   placeholder='Select Languages'
                   onChange={handleChange}
+                  closeOnChange={true}
                   value={guide.languages}
                 />
               </div>
@@ -365,8 +359,8 @@ function GuideForm({ guide: guideToEdit = {}, language }) {
 
             <div className="col-md">
               <div className="form-floating">
-                <textarea className={`form-control ${(touch.experience && errors.experience) ? 'is-invalid' : ''}`} id="floatingexperience"
-
+                <textarea className={`form-control  ${(touch.experience && errors.experience) ? 'is-invalid' : ''}`} id="floatingexperience"
+                  style={{height: 150}}
                   type="text"
                   name="experience"
                   value={guide.experience}
@@ -383,12 +377,12 @@ function GuideForm({ guide: guideToEdit = {}, language }) {
 
 
          
-          {guide.id &&
-                <Button type="submit" color="outline-primary" block className="btn-social mb-3"
+          {!guide.id &&
+                <Button type="submit" color="outline-primary" block className="btn-social mt-3"
                   onClick={() => {
                     setModalShow(true);
                   }}>
-                  <span className="d-none d-sm-inline">Connect with customers!!222 </span></Button>}
+                  <span className="d-none d-sm-inline">Connect with customers!! </span></Button>}
 
 
 
@@ -398,8 +392,10 @@ function GuideForm({ guide: guideToEdit = {}, language }) {
                 />
                 
 
-          {!guide.id &&
-            <button type="submit" className="btn btn-primary ms-3 mt-4 me-5">Update profile</button>}
+          {guide.id &&
+
+            <Button outline color="secondary" className="mt-3" >Update Profile</Button>
+            }
 
         </form>
 
@@ -412,7 +408,7 @@ function GuideForm({ guide: guideToEdit = {}, language }) {
         </div>
 
       </div>
-    </>
+    </Container>
 
   )
 

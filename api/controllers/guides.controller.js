@@ -4,92 +4,104 @@ const passport = require('passport');
 
 
 
-module.exports.list = (req, res, next) => {
+module.exports.list = async (req, res, next) => {
+    let criteria = {}
+    const { search, languages } = req.query;
 
-   const criteria = {}
-  const { search, languages } = req.query;
-  console.log(req.query)
+    if (search) {
+        criteria = {
+            $or:
+                [
+                    { name: new RegExp(search, 'i') },
+                    { experience: new RegExp(search, 'i') }
+                ]
+        }
+    }
 
-  
-  if (search) {
-    criteria.name = new RegExp(search, 'i');
-  }
+    if (languages) {
+        criteria.languages = { $all: languages }
 
-  /*if(languages) {
-      criteria.languages = 
-  }*/
-    Guide.find(criteria) 
-    
-    .then(guides => {
-        console.log(guides)
-        res.status(200).json(guides)}) //recojo todos los eventos y lo devuelvo
-    .catch(next)
+    }
+
+
+    Guide.find(criteria)
+        .then(guides => {
+            if (!req.user) {
+                res.status(200).json(guides)
+            }
+            else
+                res.status(200).json(guides.filter(guide => guide.id != req.user.id))
+        })
+
+        .catch(next)
 }
 
 
-module.exports.detail = (req, res, next) => { 
+module.exports.detail = (req, res, next) => {
     Guide.findById(req.params.id)
-    .then(guide => res.json(guide))
-    .catch(next)    
+        .then(guide => res.json(guide))
+        .catch(next)
 }
-
-
 
 
 module.exports.create = (req, res, next) => {
 
-
-    if(req.file) {
+    if (req.file) {
         req.body.avatar = req.file.url
     }
 
-    
-    console.log(req.body)
-    console.log(req.user)
-
-    req.body._id = req.user.id
-
     Guide.create(req.body)
-    
+
         .then(guide => {
             req.user.role = 'guide'
             return req.user.save() //en mongoose no se popula con save
-                    .then(user => user.populate('guide').execPopulate())
-                    .then(user => res.status(201).json(user))
-                    
+                .then(user => user.populate('guide').execPopulate())
+                .then(user => res.status(201).json(user))
+
         })
         .catch(next)
-    
+
 }
 
 
 module.exports.delete = (req, res, next) => {
 
-    if(req.file) {
+    if (req.file) {
         req.body.avatar = req.file.url
     }
-    
+
     Guide.findByIdAndDelete(req.params.id)
         .then(guide => {
-            if(guide) res.status(204).json({})
+            if (guide) res.status(204).json({})
             else next(createError(404, 'Guide not found'))
         })
-        .catch(next)    
+        .catch(next)
 }
 
-module.exports.update = (req, res, next) => {  
-    
-    if(req.file) {
+module.exports.update = (req, res, next) => {
+
+
+    if (req.file) {
         req.body.avatar = req.file.url
     }
-          const {id} = req.body    
-          console.log(id)          //con esto le decioms que en el Json nos devuelva el creado
-    Guide.findByIdAndUpdate(id, req.body, {new:true, runValidators: true}) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
-        .then( guide => {
-            if(guide) res.status(204).json(guide)
+
+    delete req.body.id;
+    delete req.body.createdAt;
+    delete req.body.updatedAt;
+
+    const { id } = req.body
+
+    //con esto le decioms que en el Json nos devuelva el creado
+    Guide.findById(req.params.id) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
+        .then(guide => {
+            if (guide) {
+                Object.assign(guide, req.body)
+                return guide.save()
+                    .then(guide => res.json(guide))
+            }
             else next(createError(404, 'Guide not found'))
-        })       
-        .catch(next)    
+        })
+        .catch(next)
 }
 
 

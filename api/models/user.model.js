@@ -23,6 +23,7 @@ const userSchema = new Schema({
     match: [PASSWORD_PATTERN, 'Password needs at least 8 chars'], //33432179250
   },
 
+ 
   userName: {
     type: String,
     required: "Your name is required",

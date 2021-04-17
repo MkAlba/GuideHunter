@@ -52,6 +52,15 @@ const validations = {
       message = 'Password at least need 8 characters'
     }
     return message;
+  },
+
+  password2: (value) => {
+    let message;
+    if (!value) {
+      message = 'Confirmation password is required';
+    } 
+
+    return message
   }
 }
 
@@ -63,6 +72,7 @@ function RegisterForm() {
     user: {
       userName: '',
       password: '',
+      password2: '',
       email: '',
       //    avatar: ''
     },
@@ -71,6 +81,7 @@ function RegisterForm() {
       userName: validations.userName(),
       email: validations.email(),
       password: validations.password(),
+      password2: validations.password2(),
     },
 
     touch: {}
@@ -78,9 +89,11 @@ function RegisterForm() {
 
   const isValid = () => {
     const { errors } = state;
-    return !Object.keys(errors).some(error => errors[error]);
-  }
+    
 
+    return !Object.keys(errors).some(error => errors[error]);
+  
+  }
 
   const handleBlur = (event) => {
     const { name } = event.target;
@@ -119,15 +132,22 @@ function RegisterForm() {
 
     event.preventDefault();
 
+    const { password, password2 } = state.user;
+
+    console.log(password)
+    console.log(password2)
+    if (password !== password2) 
+          return  errors.password2 = "Password does not match"
+
     if (isValid()) {
 
       try {
         const { user } = state;
         await register(user);
-        history.push('/login', { email: user.email });
+        history.push('/login', { isOpen: true, email: user.email });
       }
       catch (error) {//esos errores son al utilizar el servicio al ir  servidor lo deja axios
-        const { message, errors } = error && error.response ? error.response.data : error;
+        const {  errors } = error && error.response ? error.response.data : error;
         console.error(errors);
         setState(state => ({
           ...state,   //aqui conseguimos que si el error no está en react lo valide el servidor
@@ -210,17 +230,17 @@ function RegisterForm() {
 
 
               <div className="form-group mb-2">
-                <input className={`form-control ${(touch.password && errors.password) ? 'is-invalid' : ''}`}
+                <input className={`form-control ${(touch.password2 && errors.password2) ? 'is-invalid' : ''}`}
                   type="password"
                   name="password2"
                   placeholder="Confirm your password"
-                  value={user.password}
+                  value={user.password2}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   required
                 />
 
-                <div className="invalid-feedback">{errors.password}</div>
+                <div className="invalid-feedback">{errors.password2}</div>
               </div>
 
 
@@ -230,8 +250,8 @@ function RegisterForm() {
             <hr data-content="OR" className="my-3 hr-text letter-spacing-2" />
 
             <Link to={{
-              pathname: "/login",
-              state: { setModalShow: true },
+              pathname: "/login" ,
+
             }}>
               <Button color="outline-primary"  block className="btn-social mb-3">
                 <span className="d-none d-sm-inline">Already Registered? </span>

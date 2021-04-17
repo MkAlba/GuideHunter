@@ -1,33 +1,29 @@
-
 import React, { Component } from 'react';
-import service from './../home/HomeGuides';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import {
-
-
-  Button,
-  Container,
-  Divider,
+import { 
+  Container,  
   Grid,
-  Header,
-  Icon,
-  Image,
-  List,
-  Menu,
-  Segment,
-  Sidebar,
-  Visibility,
+  Header, 
+  List,  
+  Segment,  
 } from 'semantic-ui-react'
+
+ 
 
 function Footer() {
     
 
     return(
    
-    <Container fluid>
+    <Container 
+      position 
+      fluid
+      position="absolute"
+      bottom = '0'
+     
+      >
         <Segment inverted 
-                vertical 
+                vertical
+               
                 fixed="bottom"
         
         

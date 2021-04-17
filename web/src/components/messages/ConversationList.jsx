@@ -1,27 +1,23 @@
 import { useState, useContext, useEffect } from 'react';
 import { list } from '../../services/messages-service'
 import ConversationItem from './ConversationItem';
+import { Card, Grid } from 'semantic-ui-react';
+
 
 function ConversationList() {
 
-
-
     const [conversations, setConversations] = useState([])
+
+
 
     useEffect(() => {
 
-
         async function fetchConversations() {
 
-
             const conversations = await list()
-
-            console.log(conversations)
             if (!isUnmounted) {
                 setConversations(conversations)
             }
-
-
         }
 
         let isUnmounted = false;
@@ -31,24 +27,31 @@ function ConversationList() {
             // componentWillUnmount
             isUnmounted = true;
         }
-
     }
-
         , [])
 
+
+
+
     return (
-        <div>
-            { conversations.map(conversation => (
-                <div key={conversation.id}
-                >
+        <Grid className=" mt-4" container columns={3}>
+            <Card>
+                <div>
+                    {conversations.map(conversation => (
 
-                    <ConversationItem
+                        <Grid.Column className="mb-4" key={conversation.id}>
 
-                        conversation={conversation}
-                    />
+                            <ConversationItem
+
+                                conversation={conversation}
+                            />
+
+                        </Grid.Column>
+                    ))}
                 </div>
-            ))}
-        </div>
+            </Card>
+        </Grid>
+
     )
 
 

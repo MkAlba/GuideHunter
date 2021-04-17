@@ -8,7 +8,7 @@ import UserForm from './screens/users/UsersForm';
 import AuthStore from './components/contexts/AuthStore';
 import Tours from './screens/tours/Tours';
 import 'semantic-ui-css/semantic.min.css'
-//import PrivateRoute from './guards/PrivateRoute';
+import PrivateRoute from './guards/PrivateRoute';
 import Error from './screens/Error';
 import TourAlone from './screens/tours/TourAlone';
 import Home from './components/home/HomeGuides';
@@ -16,9 +16,10 @@ import Xat from './components/xat/Xat';
 import UsersProfile from './screens/users/UsersProfile';
 import AuthCallback from './screens/users/AuthCallback';
 import Conversations from './screens/messages/Conversations';
-import ConversationDetail from './components/messages/ConversationDetail';
+import GuideToEdit from './screens/guides/GuideToEdit';
 import Footer from './components/footer/Footer';
-
+import '../src/components/footer/Footer.css'
+import ConversationModal from './components/messages/ConversationModal';
 
 
 
@@ -44,12 +45,15 @@ function App() {
           <Route exact path="/guides" component={Guides} />
           <Route exact path="/guides/:id" component={GuideAlone} />
           <Route exact path="/form-guide" component={GuideAdmission} />
+          <PrivateRoute exact path="/form-guide/:id" component={GuideToEdit} />
+
 
           <Route exact path="/tours" component={Tours} />
           <Route exact path="/tours/:id" component={TourAlone} />
 
           <Route exact path="/messages" component={Conversations} />
-          <Route exact path="/messages/detail" component={ConversationDetail} />
+          <Route exact path="/messages/:id/read" component={ConversationModal} />
+
           
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={UserForm} />
@@ -63,7 +67,7 @@ function App() {
           <Redirect to="/home" />
 
         </Switch>
-         <Footer />
+       
 
       </AuthStore>
     </Router>

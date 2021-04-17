@@ -1,10 +1,10 @@
 
-import {  useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../components/contexts/AuthStore';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import messageToRead from '../../images/envelope.png'
 import messageReaded from '../../images/letterToOpen.png'
-
+import { Button, Icon, Label } from 'semantic-ui-react'
 
 
 
@@ -12,17 +12,16 @@ import messageReaded from '../../images/letterToOpen.png'
 
 
 function UsersProfile() {
-    const history = useHistory()
-    const params = useParams()
+
 
     const { user, isAuthenticated } = useContext(AuthContext)
     console.log(user)
 
 
-    
 
-   
-    
+
+
+
     return (
 
         <div className="container">
@@ -38,13 +37,13 @@ function UsersProfile() {
                                         <h4>{user?.userName}</h4>
                                         <p className="text-secondary mb-1">Full Stack Developer</p>
                                         <p className="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                                       
+
                                         {user?.role === 'user' && <Link
                                             to="/form-guide">
                                             <button className="btn btn-outline-primary me-2"> Are you a professional guide? </button>
                                         </Link>}
 
-                                        <button className="btn btn-outline-primary">Edit Profile</button>
+
                                     </div>
                                 </div>
                             </div>
@@ -54,25 +53,26 @@ function UsersProfile() {
                                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 
 
-                                
 
 
 
-                                <Link
-                                            to="/messages"
-                                            >
-                                                           
-                                    <h6 className="mb-0"><img src={messageToRead} alt="Messages to read Image" width="24" height="24" /></h6>
+
+                                    <Link
+                                        to="/messages"
+                                    >
+
+                                        <h6 className="mb-0">
+                                            <Icon name="envelope outline" size="big" /></h6>
                                     </Link>
-                                   
-                               
-                                   <h6 className="mb-0"><img src={messageReaded} alt="Not messages to read Image" width="24" height="24" /></h6>
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
+
+
+                                    <h6 className="mb-0"><img src={messageReaded} alt="Not messages to read Image 2" width="24" height="24" /></h6>
+
+
+
+
+
+
                                     <span className="text-secondary">Messages</span>
                                 </li>
                                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -96,7 +96,7 @@ function UsersProfile() {
                     </div>
                     <div className="col-md-8">
 
-                        <h3 className="text-center">User Profile</h3>
+                        <h3 className="text-center">User Details</h3>
                         <div className="card mb-3">
                             <div className="card-body">
                                 <div className="row">
@@ -144,13 +144,28 @@ function UsersProfile() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        
+
+                        </div>
+                        <div className="text-center">
+                            <Button as='div' labelPosition='left'>
+                                <Button basic
+                                    centered
+                                    size='medium'
+
+                                    color='brown'>
+                                    <Icon name='address book' />
+                                    Edit
+                                </Button>
+                                <Label as='a' basic color='black' pointing='left'>
+                                    User Details
+                                </Label>
+                            </Button>
+                        </div>
                         {user?.role === 'guide' &&
 
                             <>
-                                <h3 className="text-center">Guide Profile</h3>
+                                <h3 className="text-center">Guide Details</h3>
                                 <div className="card mb-3">
 
                                     <div className="card-body">
@@ -200,8 +215,25 @@ function UsersProfile() {
                                         </div>
                                     </div>
                                 </div>
-                            </>}
-
+                            <Link  to={`/form-guide/${user.id}`}>
+                                <div className="text-center">
+                                    <Button                                        
+                                        as='div' labelPosition='left'>
+                                        <Button basic
+                                            centered
+                                            size='medium'
+                                            color='brown'>
+                                            <Icon name='address book' />
+                                            Edit
+                                        </Button>
+                                        <Label as='a' basic color='black' pointing='left'>
+                                            Guide Details
+                                        </Label>
+                                    </Button>
+                                </div>   
+                            </Link>                        
+                         </>
+                        }
                     </div>
                 </div>
             </div>

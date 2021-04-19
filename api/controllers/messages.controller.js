@@ -24,15 +24,41 @@ module.exports.message = (req, res, next) => {
 }
 
 
+module.exports.oneMessage = (req, res, next) => {
+
+
+  const userId = req.user.id
+
+  
+
+  Message.findOne({
+    $and: [
+  
+    //  { user : userId},
+      { read_check: false },
+      { $or: [{ guide: userId }, { user: userId }] }
+    ]
+  })
+    .then(message => {
+console.log(message)
+      if (message) res.json(true)
+      else res.json(false)
+    })
+
+    .catch(next)
+}
+
+
 
 
 
 module.exports.checkMessages = (req, res, next) => {
-  const checkId = req.user.id
+  
+  console.log(checkId)
   Message.find({
     $and: [
 
-     // { read_check: 'false' },
+      // { read_check: 'false' },
       { $or: [{ guide: checkId }, { user: checkId }] }
     ]
   })
@@ -55,6 +81,7 @@ module.exports.checkMessages = (req, res, next) => {
       }, {})
 
       res.status(201).json(Object.values(conversations))
+     
 
     })
     .catch(next)
@@ -62,20 +89,12 @@ module.exports.checkMessages = (req, res, next) => {
 
 
 
-
-module.exports.detail = (req, res, next) => {
-  Message.findById(req.params.id)
-    .then(guide => res.json(guide))
-    .catch(next)
-}
-
-
 module.exports.read = (req, res, next) => {
+  
+  console.log(req.user.id)
+  console.log(message)
 
-  Message.findByIdAndUpdate({ id: req.params.id }, {read_check: true })
-
-  console.log('aaaaaaaaaaaaaaaa')
- ///recoger el mensaje por Id y read check a true
+  Message.findByIdAndUpdate({ _id: req.params.id }, { read_check: true })
 
     .then(message => res.status(200).json(message))
     .catch(next);

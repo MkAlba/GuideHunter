@@ -1,13 +1,14 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { list } from '../../services/messages-service'
 import ConversationItem from './ConversationItem';
 import { Card, Grid } from 'semantic-ui-react';
-
+import { useParams, useHistory } from 'react-router-dom';
 
 function ConversationList() {
 
     const [conversations, setConversations] = useState([])
-
+    const params = useParams()
+    const history = useHistory()
 
 
     useEffect(() => {
@@ -28,7 +29,7 @@ function ConversationList() {
             isUnmounted = true;
         }
     }
-        , [])
+        , [params, history])
 
 
 

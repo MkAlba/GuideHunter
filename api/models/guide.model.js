@@ -114,7 +114,7 @@ tour: {
       delete ret._id;
       delete ret.__v;
       delete ret.password;
-      ret.id = doc.id;
+      ret.id = doc._id;
       return ret;
     }
   } 

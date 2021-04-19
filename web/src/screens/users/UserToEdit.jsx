@@ -1,16 +1,14 @@
-import { useState } from "react";
-import { useHistory } from "react-router"; //use History te permite modificar y manipular la api de la url me puedo mover desde donde quiera
-import { register } from "../../../services/users.service";
-import registerLogo from '../../../images/Register.jpeg'
+import React from 'react'
+import { useState} from 'react';
+import { useHistory } from 'react-router' 
+import { update } from "../../services/users.service";
 import { Link } from 'react-router-dom';
 
-import {
 
-  Container,
-  Row,
-  Col,
+import {
+  Grid,
   Button,
-} from "reactstrap"
+} from "semantic-ui-react"
 
 
 
@@ -64,17 +62,19 @@ const validations = {
   }
 }
 
-function RegisterForm() {
+function UserToEdit({...editUser}) {
 
   const history = useHistory()
+  
 
   const [state, setState] = useState({
     user: {
-      userName: '',
+      userName: editUser?.location?.state?.user.userName,
       password: '',
       password2: '',
-      email: '',
-      //    avatar: ''
+      email: editUser?.location?.state?.user.email,
+      avatar: editUser?.location?.state?.user.avatar,
+      phoneNumber: editUser?.location?.state?.user.phoneNumber,
     },
 
     errors: {
@@ -133,9 +133,6 @@ function RegisterForm() {
     event.preventDefault();
 
     const { password, password2 } = state.user;
-
-    console.log(password)
-    console.log(password2)
     if (password !== password2)
       return errors.password2 = "Password does not match"
 
@@ -143,8 +140,8 @@ function RegisterForm() {
 
       try {
         const { user } = state;
-        await register(user);
-        history.push('/login', { isOpen: true, email: user.email });
+        await update(user);
+        history.push(`/users/${user.id}`, { isOpen: true, email: user.email });
       }
       catch (error) {//esos errores son al utilizar el servicio al ir  servidor lo deja axios
         const { errors } = error && error.response ? error.response.data : error;
@@ -163,31 +160,29 @@ function RegisterForm() {
 
   return (
 
-    <Container fluid className="px-3">
-      <Row className="text-center row justify-content-md-center">
-        <Col md="8" lg="6" xl="5" className="d-flex align-items-center">
+    <Grid fluid className="px-3">
+      <Grid.Row className="text-center row justify-content-md-center">
+        <Grid.Column width={6} md="8" lg="6" xl="5" className="d-flex align-items-center">
           <div className="w-100 py-5 md-5 px-xl-6 p">
             <div className="mb-4">
               <img
-                src={registerLogo}
+                src={user.avatar}
                 alt="..."
                 style={{ maxWidth: "30rem" }}
                 className="img-fluid mb-3"
               />
-              <h2 className="text-center">Register</h2>
+              <h2 className="text-center">Update your contact details</h2>
               <p className="text-muted text-center">
-                His room, a proper human room although a little too small, lay
-                peacefully between its four familiar walls. A collection of
-                textile samples lay spread out on the table.
+               We recommend you to introduce your phone number...in a few weeks you could contact us using Telegram
               </p>
             </div>
             <form onSubmit={handleSubmit}>
 
               <div className="form-group mb-2">
-                <input className={`form-control ${(touch.userName && errors.userName) ? 'is-invalid' : ''}`}
+                <input className={`form-control ${(touch.user.userName && errors.userName) ? 'is-invalid' : ''}`}
                   type="text"
                   name="userName"
-                  placeholder="UserName"
+                  placeholder={user.userName}
                   value={user.userName}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -243,42 +238,71 @@ function RegisterForm() {
                 <div className="invalid-feedback">{errors.password2}</div>
               </div>
 
+              <div className="form-group mb-2">
+              <label  className="form-label mt-3">We recommend you add your phone number</label>
+                <input className={`form-control ${(touch.phoneNumber && errors.phoneNumber) ? 'is-invalid' : ''}`}
+                  type="number"
+                  name="phoneNumber"
+                  placeholder="phoneNumber"
+                  value={user.phoneNumber}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  required
+                />
 
-              <button type="submit" className="btn btn-primary btn-block mt-1">Register</button>
+                <div className="invalid-feedback">{errors.phoneNumber}</div>
+              </div>
 
-            </form>
+
+
+
+              <div className="form-group mb-2">
+              <label  className="form-label mt-3">Selec a new avatar</label>
+                <input className={`form-control ${(touch.avatar && errors.avatar) ? 'is-invalid' : ''}`}
+                  type="file"
+                  name="avatar"
+                  
+                  placeholder="If you want to chnage it select here you avatar"
+                 
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  
+                />
+
+                <div className="invalid-feedback">{errors.avatar}</div>
+              </div>
+
+
+
+
+
+
+
+
+
+             
+
+            
             <hr data-content="OR" className="my-3 hr-text letter-spacing-2" />
 
-            <Link to={{
-              pathname: "/login",
-
-            }}>
+            
               <Button color="outline-primary" block className="btn-social mb-3">
-                <span className="d-none d-sm-inline">Already Registered? </span>
+                <span className="d-none d-sm-inline">Save your changes </span>
               </Button>
-            </Link>
+            
 
-            <Button color="outline-muted" block className="btn-social mb-3">
-              <i className="fa fa-google " />
-
-              <span className="d-none d-sm-inline"> Login with Google</span>
-            </Button>
-            <hr className="my-4" />
-            <p className="text-sm text-muted">
-              By signing up you agree to Directory's{" "}
-              <a href="/home">Terms and Conditions</a> and{" "}
-              <a href="/home">Privacy Policy</a>.
-            </p>
+          </form>
 
 
 
 
           </div>
 
-        </Col>
-      </Row>
-    </Container>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   )
 
 }
-export default RegisterForm
+export default  UserToEdit
+

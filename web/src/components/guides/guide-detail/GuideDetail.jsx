@@ -12,7 +12,7 @@ import { MessageForm } from './../../messages/MessageForm';
 function GuideDetail() {
 
   const history = useHistory()
-  const params = useParams()
+ const params = useParams() 
   const [guide, setGuide] = useState()
   const { user, isAuthenticated } = useContext(AuthContext)
 

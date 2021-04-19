@@ -20,7 +20,7 @@ import GuideToEdit from './screens/guides/GuideToEdit';
 import Footer from './components/footer/Footer';
 import '../src/components/footer/Footer.css'
 import ConversationModal from './components/messages/ConversationModal';
-
+import UserToEdit from './screens/users/UserToEdit';
 
 
 
@@ -41,6 +41,7 @@ function App() {
           <Route exact path="/home" component={Home} />
 
           <Route exact path="/users/:id" component={UsersProfile} />
+          <PrivateRoute exact path="/form-user/:id" component={UserToEdit} />
 
           <Route exact path="/guides" component={Guides} />
           <Route exact path="/guides/:id" component={GuideAlone} />

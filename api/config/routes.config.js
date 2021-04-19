@@ -49,17 +49,26 @@ router.get('/guides/:guideId/tours', tourController.listByGuide);
 //USERS
 router.get('/users', secure.isAuthenticated,  userController.list); //secure.isAuthenticated,
 router.get('/users/:id', secure.isAuthenticated, storage.single('avatar'), userController.detail); //secure.isAuthenticated,
-router.patch('/users/:id', secure.isAuthenticated,  storage.single('avatar'), userController.update);  //secure.isAuthenticated, 
+router.patch('/form-user/:id', secure.isAuthenticated,  storage.single('avatar'), userController.update);  //secure.isAuthenticated, 
 router.delete('/users/:id', secure.isAuthenticated, storage.single('avatar'), userController.delete); //secure.isAuthenticated,
 
 
 
 // INTRANET - MESSAGES
 
+router.put('/messages/:id/read', secure.isAuthenticated, messageController.read);
 
-router.post('/message', messageController.message);
+
+
+
+router.post('/message', secure.isAuthenticated, messageController.message);
+router.get('/onemessage', secure.isAuthenticated, messageController.oneMessage);
+
 router.get('/messages', secure.isAuthenticated, messageController.checkMessages);
-router.post('/messages/:id/read', secure.isAuthenticated, messageController.read);
+
+
+
+
 
 //router.get('/guides/me/messages',  secure.isAuthenticated,  messageController.chat);
 //router.get('/guides/me/message/check/:id', secure.isAuthenticated, messageController.checkMessage);

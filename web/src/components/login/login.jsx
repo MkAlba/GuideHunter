@@ -35,10 +35,10 @@ function Login(props) {
     e.preventDefault()
 
     try {
-      const user = await login(data.email, data.password)
-      onUserChange(user)
-      props.onHide()
-      
+      const user = await login(data.email, data.password) 
+           
+      onUserChange(user)     
+      props.onHide()      
       history.replace('/home')
 
     } catch (error) {

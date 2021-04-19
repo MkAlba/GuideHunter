@@ -17,10 +17,6 @@ export const MessageForm = (IdGuide) => {
   
   const params = useParams()
 
-  console.log(params)
-  console.log(IdGuide)
-  console.log(IdGuide.id)
-
   const initialInputState = { message: "" };
 
   const [newMessage, setNewMessage] = useState(initialInputState);

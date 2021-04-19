@@ -147,6 +147,14 @@ function UsersProfile() {
 
 
                         </div>
+                        <Link  
+                        
+                        to={{
+                            pathname:`/form-user/${user.id}`,
+                            state:{user}                      
+                        
+                        
+                             }}>
                         <div className="text-center">
                             <Button as='div' labelPosition='left'>
                                 <Button basic
@@ -162,6 +170,7 @@ function UsersProfile() {
                                 </Label>
                             </Button>
                         </div>
+                        </Link>
                         {user?.role === 'guide' &&
 
                             <>

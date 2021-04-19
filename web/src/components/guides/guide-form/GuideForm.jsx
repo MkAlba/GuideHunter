@@ -144,12 +144,12 @@ function GuideForm({ guide: guideToEdit = {}, languages }) {
     event.preventDefault();
 
     if (isValid()) {  //si no hay errores entonces creamos al guía
-      console.log('aaaaaaaaa')
+     
       try {
         const guideData = {...state.guide};
-        console.log(guideData)
+        
         guideData.languages = guideData.languages.map(language => language.trim()) || [];
-        console.log(guideData)
+        
         const guide = guideData.id ? await guidesService.update(guideData) : await guidesService.create(guideData);
         history.push(`/guides/${guide.id}`);
 
@@ -215,7 +215,7 @@ function GuideForm({ guide: guideToEdit = {}, languages }) {
 
   const isValid = () => {  //funcion que comprueba que no hay errores
     const { errors } = state;
-    console.log(errors)
+   
     return !Object.keys(errors).some(error => errors[error]);
   }
 

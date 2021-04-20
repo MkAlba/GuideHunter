@@ -44,6 +44,8 @@ module.exports.detail = (req, res, next) => {
 }
 
 
+
+
 module.exports.create = (req, res, next) => {
 
     if (req.file) {
@@ -80,19 +82,23 @@ module.exports.delete = (req, res, next) => {
 
 module.exports.update = (req, res, next) => {
 
-
+console.log(req.body)
+console.log('aaaaaaaaaaaaaa')
     if (req.file) {
-        req.body.avatar = req.file.url
+        req.body.avatar = req.file.url[0]
     }
 
-    delete req.body.id;
+   // delete req.body.id;
     delete req.body.createdAt;
     delete req.body.updatedAt;
 
     const { id } = req.body
+    const {images} = req.body
+    console.log(images)
+    
 
     //con esto le decioms que en el Json nos devuelva el creado
-    Guide.findById(req.params.id) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
+    Guide.findById(id) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
         .then(guide => {
             if (guide) {
                 Object.assign(guide, req.body)
@@ -106,4 +112,32 @@ module.exports.update = (req, res, next) => {
 
 
 
+module.exports.uploadImages = async(req, res) => {
 
+    const images = []
+
+      const files = req.files;      
+      for (const file of files) {
+        const {path} = file;
+        images.push(path)} 
+
+        Guide.create({
+            ...req.body, 
+            business: req.params.id,
+            author: req.user.id,
+            images,
+          })      
+          .then((service) => res.redirect(`/professional/${req.user.id}`))      
+          .catch((error) => {
+            if (error instanceof mongoose.Error.ValidationError) {
+              res.render('intranetProfessional/services/newService', {
+                 errors: error.errors,
+                 service: req.body,
+              });
+            } else {
+              next(error);
+            }
+          });
+
+
+}

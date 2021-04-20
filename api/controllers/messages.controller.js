@@ -13,7 +13,7 @@ module.exports.message = (req, res, next) => {
 
   Message.create(
     {
-      user: req.body.userId.id,
+      user: (req.body.userId.id || req.user.id), //he añadido el req.user.id porque al contestar desde guia me lo enviaba undefined
       message: req.body.message.message,
       guide: req.body.guideId.id
     }
@@ -36,7 +36,7 @@ module.exports.oneMessage = (req, res, next) => {
   
     //  { user : userId},
       { read_check: false },
-      { $or: [{ guide: userId }, { user: userId }] }
+      { $or: [{ guide: userId }] }
     ]
   })
     .then(message => {
@@ -53,12 +53,12 @@ console.log(message)
 
 
 module.exports.checkMessages = (req, res, next) => {
-  
+  const checkId = req.user.id
   console.log(checkId)
   Message.find({
     $and: [
 
-      // { read_check: 'false' },
+       { read_check: 'false' },
       { $or: [{ guide: checkId }, { user: checkId }] }
     ]
   })
@@ -92,7 +92,10 @@ module.exports.checkMessages = (req, res, next) => {
 module.exports.read = (req, res, next) => {
   
   console.log(req.user.id)
-  console.log(message)
+  console.log(req.params.id)
+  
+
+ 
 
   Message.findByIdAndUpdate({ _id: req.params.id }, { read_check: true })
 

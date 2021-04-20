@@ -13,31 +13,30 @@ function ConversationModal({ messages, userConversation }) {
 
   const [open, setOpen] = useState(false)
   const { user  } = useContext(AuthContext);
-  console.log(user)
   const history = useHistory()
 
   const [messageToRead, setMessageToRead] = useState([])
 
   let messagesToRead = messages.filter(message => message.read_check === false)
 
-  let messagesRead = messages.filter(message => message.read_check === true)
   console.log(messagesToRead)
+  console.log(user)
 
-
-
-  useEffect(() => {
-    //component didmount
+  //let messagesRead = messages.filter(message => message.read_check === true)
+  
+  useEffect(() => {  
     
-    console.log(messagesToRead.id)
-    
-    if (user.id = messagesToRead.id ) { 
+    if ((user.id || user.guide.id) === messagesToRead[0].guide.id ) { 
     async function readMessages() {
+      
 
       try {       
-
+        
          await messagesToRead.map(message => (
-      console.log(message),
-          update(message)))
+          update(message)
+          ))
+
+          console.log('aaaaaaaa')
 
         if (!isUnmounted) {
 
@@ -56,13 +55,12 @@ function ConversationModal({ messages, userConversation }) {
       }
     }
 
-
-
     let isUnmounted = false;
+
     readMessages();
 
     return () => {
-      //la función que retorna es el component WillUnmount
+     
       isUnmounted = true;
     }}
   }, [])
@@ -99,8 +97,8 @@ function ConversationModal({ messages, userConversation }) {
                   {message.user.id === user.id
 
 
-                    ? <Feed.Label as='a'> <img src={user.avatar} /></Feed.Label>
-                    : <Feed.Label as='a'> <img src={message.user.avatar} /></Feed.Label>}
+                    ? <Feed.Label as='a'> <img src={user.avatar} alt="User avatar" /></Feed.Label>
+                    : <Feed.Label as='a'> <img src={message.user.avatar} alt="User Message avatar" /></Feed.Label>}
 
                   <Feed.Content>
 

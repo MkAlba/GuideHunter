@@ -17,10 +17,12 @@ import UsersProfile from './screens/users/UsersProfile';
 import AuthCallback from './screens/users/AuthCallback';
 import Conversations from './screens/messages/Conversations';
 import GuideToEdit from './screens/guides/GuideToEdit';
-import Footer from './components/footer/Footer';
+//import Footer from './components/footer/Footer';
 import '../src/components/footer/Footer.css'
 import ConversationModal from './components/messages/ConversationModal';
 import UserToEdit from './screens/users/UserToEdit';
+import TourForm from './components/tours/TourForm';
+
 
 
 
@@ -49,7 +51,9 @@ function App() {
           <PrivateRoute exact path="/form-guide/:id" component={GuideToEdit} />
 
 
+          <PrivateRoute exact path="/create-tour" component={TourForm} />
           <Route exact path="/tours" component={Tours} />
+          
           <Route exact path="/tours/:id" component={TourAlone} />
 
           <Route exact path="/messages" component={Conversations} />

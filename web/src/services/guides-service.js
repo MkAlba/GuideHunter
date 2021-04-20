@@ -1,9 +1,9 @@
 import http from './base-api-service';
 
-const list = (search, languages) => http.get('/guides', {params: {search, languages}})
+const list = (search, languages) => http.get('/guides', { params: { search, languages } })
 
-const detail = (id) =>  http.get(`/guides/${id}`)
-  
+const detail = (id) => http.get(`/guides/${id}`)
+
 
 const create = (guide) => {
     const data = new FormData()
@@ -16,13 +16,20 @@ const create = (guide) => {
 
 const remove = (id) => http.delete(`/guides/${id}`)
 
- const update = (guide) => {
+const update = (guide) => {
 
+    console.log(guide)
+ 
+    const data = new FormData()
 
-    console.log('bbbbbbb')
-console.log(guide)
-http.put(`/guides/${guide.id}`, guide)
-}   
+    Object.keys(guide).forEach(key => {
+        data.append(key, guide[key])
+    })
+    
+    console.log(data)
+
+    http.put(`/guides/${data.id}`, data)
+}
 
 const service = {
     create,
@@ -30,10 +37,10 @@ const service = {
     remove,
     list,
     detail
-  }
-  
-  export default service;
-  
+}
+
+export default service;
+
 
 
 

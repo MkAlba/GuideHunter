@@ -9,7 +9,7 @@ const guideController = require('../controllers/guides.controller');
 const messageController = require('../controllers/messages.controller');
 const reviewController = require('../controllers/reviews.controller');
 const tourController = require('../controllers/tours.controller');
-const searchController = require('../controllers/search.controller');
+
 
 
 
@@ -31,6 +31,7 @@ router.get('/guides/:id',  guideController.detail);
 router.put('/guides/:id', checkRole.isGuide,  secure.isAuthenticated, storage.single('avatar'), guideController.update); //secure.isAuthenticated,
 router.delete('/guides/:id', checkRole.isGuide, secure.isAuthenticated, storage.single('avatar'), storage.array('images', 6), guideController.delete);//secure.isAuthenticated,
 
+router.patch('/guides/upload-images', secure.isAuthenticated,storage.array('images', 3), guideController.uploadImages)
 
 
 
@@ -38,8 +39,11 @@ router.delete('/guides/:id', checkRole.isGuide, secure.isAuthenticated, storage.
 router.get('/tours', tourController.list);
 router.post('/tours', tourController.create); //secure.isAuthenticated,
 router.get('/tours/:id', tourController.detail); 
-router.put('/tours/:id',secure.isAuthenticated, tourController.update); //secure.isAuthenticated,
-router.delete('/tours/:id',secure.isAuthenticated, tourController.delete); //secure.isAuthenticated,
+router.put('/tours/:id', secure.isAuthenticated,storage.array('images', 3), tourController.update); //secure.isAuthenticated,
+router.delete('/tours/:id',secure.isAuthenticated,storage.array('images', 3), tourController.delete); //secure.isAuthenticated,
+
+
+router.patch('/tours/upload-images', secure.isAuthenticated, tourController.uploadImages)
 
 
 router.get('/guides/:guideId/tours', tourController.listByGuide); 
@@ -48,15 +52,20 @@ router.get('/guides/:guideId/tours', tourController.listByGuide);
 
 //USERS
 router.get('/users', secure.isAuthenticated,  userController.list); //secure.isAuthenticated,
-router.get('/users/:id', secure.isAuthenticated, storage.single('avatar'), userController.detail); //secure.isAuthenticated,
-router.patch('/form-user/:id', secure.isAuthenticated,  storage.single('avatar'), userController.update);  //secure.isAuthenticated, 
+router.get('/users/:id', secure.isAuthenticated, storage.single('avatar'), userController.detail); 
+
+
+router.put('/form-user/:id', secure.isAuthenticated,  storage.single('avatar'), userController.update);  //secure.isAuthenticated, 
+
+
+
 router.delete('/users/:id', secure.isAuthenticated, storage.single('avatar'), userController.delete); //secure.isAuthenticated,
 
 
 
 // INTRANET - MESSAGES
 
-router.put('/messages/:id/read', secure.isAuthenticated, messageController.read);
+router.patch('/messages/:id/read', secure.isAuthenticated, messageController.read);
 
 
 
@@ -87,7 +96,7 @@ router.get('/authenticate/google', passport.authenticate('google-auth', { scope:
 router.get('/authenticate/google/ghunter', userController.loginWithGoogle) ///
 
 
-router.get('/search/', searchController.search)
+
 
 
 router.use((req, res, next) => {

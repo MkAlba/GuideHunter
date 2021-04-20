@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import guidesService from '../../../services/guides-service';
 import GuideItem from '../guide-item/GuideItem';
 import Filter from './../../Filter';
-import { Dropdown, Grid, Segment } from 'semantic-ui-react';
+import { Dropdown, Grid } from 'semantic-ui-react';
 const constants = require('../../../constantsWeb')
 
 
@@ -99,7 +99,7 @@ function GuidesList({ minSearchChars }) {
 
 
 
-  const { guides, loading } = state;
+  const { loading } = state;
 
 
   return (

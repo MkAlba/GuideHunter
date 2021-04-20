@@ -110,13 +110,26 @@ module.exports.detail = (req, res, next) => {
 
 module.exports.update = (req, res, next) => {
 
-
-
-
+  if (req.file) {
+    req.body.avatar = req.file.url
+}
   
-  User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
+ 
+const id = req.body.id
+
+//console.log(req.body)
+
+  console.log(req.params)
+  console.log(id)
+console.log(req.body)
+
+delete req.body.id
+
+  User.findByIdAndUpdate( {_id : req.params.id} , { $set: req.body }, { new: true}) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
+      
     .then(user => {
       if (user) res.status(201).json(user)
+      
       else next(createError(404, 'User not found'))
     })
     .catch(next)

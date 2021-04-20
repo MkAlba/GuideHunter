@@ -24,7 +24,8 @@ function Navbar() {
 
   useEffect(() => {
 
-    if (isAuthenticated()) {
+    if (user && user.id) {
+
       async function fetchExistMessage() {
 
         let oneMessage = await detail()
@@ -81,7 +82,7 @@ function Navbar() {
             <li className="nav-item me-5"><NavLink className="nav-link" activeClassName="active" to="/tours">Tours</NavLink></li>
 
 
-            {isAuthenticated() && (
+            {user && (
 
               <div className="d-grid gap-2 d-md-flex  " >
                 { oneMessage && oneMessage === true ?
@@ -93,9 +94,6 @@ function Navbar() {
                   : <img className="rounded-circle" style={{ width: 45 }} src={user.avatar} alt="Guide" />}
 
 
-
-
-
                 <li className="nav-item "><NavLink className="nav-link " to={`/users/:id`}>{user.email}</NavLink></li>
                 <Button basic color='brown' size='mini' className="nav-item  " >
                   <Icon name="sign-out" fitted="true" size=" large" onClick={handleLogout} ></Icon></Button>
@@ -103,7 +101,7 @@ function Navbar() {
 
             )}
 
-            {!isAuthenticated() && (
+            {!user && (
              
 <>
                 <li className="nav-item"><NavLink className="nav-link" activeClassName="active" to="/register">Register</NavLink></li>

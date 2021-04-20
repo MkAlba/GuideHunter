@@ -8,7 +8,7 @@ export const list = () => http.get(`/messages`)
 export const detail = () => http.get(`/onemessage`)
 
 
-export const update = (message) => http.put(`/messages/${message.id}/read`, message)
+export const update = (message) => http.patch(`/messages/${message.id}/read`, message)
 
   
    

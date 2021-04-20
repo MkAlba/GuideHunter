@@ -31,8 +31,8 @@ function ConversationList() {
     }
         , [params, history])
 
-
-
+        
+console.log(conversations)
 
     return (
         <Grid className=" mt-4" container columns={3}>

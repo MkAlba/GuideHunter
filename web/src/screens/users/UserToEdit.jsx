@@ -1,8 +1,7 @@
 import React from 'react'
 import { useState} from 'react';
-import { useHistory } from 'react-router' 
+import { useHistory, useParams } from 'react-router' 
 import { update } from "../../services/users.service";
-import { Link } from 'react-router-dom';
 
 
 import {
@@ -14,7 +13,6 @@ import {
 
 const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_PATTERN = /^.{8,}$/;
-// hacer cosas de uso de la ruta {uselocation} accede a los parametros de 
 
 const validations = {
 
@@ -64,8 +62,9 @@ const validations = {
 
 function UserToEdit({...editUser}) {
 
+  const params = useParams() 
   const history = useHistory()
-  
+
 
   const [state, setState] = useState({
     user: {
@@ -90,7 +89,8 @@ function UserToEdit({...editUser}) {
   const isValid = () => {
     const { errors } = state;
 
-
+    
+    console.log(errors)
     return !Object.keys(errors).some(error => errors[error]);
 
   }
@@ -111,8 +111,13 @@ function UserToEdit({...editUser}) {
   //  const [isCreated, setIsCreated] = useState(false);
 
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = (event, result) => {
+    let  { name, value } = result || event.target;
+
+    if (event.target.files) {
+
+      value = event.target.files[0]
+    }
     setState((state) => ({
       //esto es porque en un hooks tengo que devovlerle el objeto stado enetero
       ...state,
@@ -129,26 +134,52 @@ function UserToEdit({...editUser}) {
   }
 
   const handleSubmit = async (event) => {
-
+   
     event.preventDefault();
-
+  
     const { password, password2 } = state.user;
-    if (password !== password2)
-      return errors.password2 = "Password does not match"
+    if (password !== password2) {
 
-    if (isValid()) {
-
-      try {
-        const { user } = state;
-        await update(user);
-        history.push(`/users/${user.id}`, { isOpen: true, email: user.email });
-      }
-      catch (error) {//esos errores son al utilizar el servicio al ir  servidor lo deja axios
-        const { errors } = error && error.response ? error.response.data : error;
+        const message = "Password does not match";
+        const   errors  = "Password does not match";
         console.error(errors);
         setState(state => ({
-          ...state,   //aqui conseguimos que si el error no está en react lo valide el servidor
-          errors: errors
+          ...state,
+          errors: {    
+            ...errors,       
+            title: !errors && message
+          }         
+        }))
+
+      return errors.password2 = "Password does not match"
+
+    }
+    console.log(state.user)
+      
+    if (isValid()) {
+    
+      try {
+        const  userData  = {...state.user};
+        const { id } = params;
+        console.log(userData)
+        const user = await update(userData, id );
+        console.log(user)
+        console.log(userData.id)
+        history.push(`/users/${user.id}`);  //`/users/${user.id}`
+      }
+      catch (error) {//esos errores son al utilizar el servicio al ir  servidor lo deja axios
+        const { message, errors } = error.response?.data || error;
+        console.error(errors);
+        setState(state => ({
+          ...state,
+          errors: {
+            ...errors,
+            title: !errors && message
+          },
+          touch: {
+            ...errors,
+            title: !errors && message
+          }
         }))
       }
     }
@@ -179,7 +210,7 @@ function UserToEdit({...editUser}) {
             <form onSubmit={handleSubmit}>
 
               <div className="form-group mb-2">
-                <input className={`form-control ${(touch.user.userName && errors.userName) ? 'is-invalid' : ''}`}
+                <input className={`form-control ${(touch.userName && errors.userName) ? 'is-invalid' : ''}`}
                   type="text"
                   name="userName"
                   placeholder={user.userName}

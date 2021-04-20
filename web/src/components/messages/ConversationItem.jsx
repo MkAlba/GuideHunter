@@ -24,7 +24,7 @@ function ConversationItem({ conversation }) {
 
   const messages = channel[2]
 
-  let messagesSomeToRead = messages.some(message => !message.read_check)
+  let messagesSomeToRead = messages.some(message => message.read_check === false)
 
   let messagesRead = messages.filter(message => message.read_check === true)
 
@@ -52,21 +52,25 @@ function ConversationItem({ conversation }) {
                 <Feed.Event>
                   <Feed.Label image={userConversation.avatar} />
 
-                  {(messagesSomeToRead && messages[0].user.id != user.id) &&
+                  {((messagesSomeToRead && messages[0].user.id !== (user.id || user.guide.id))) ?
 
+                    <Feed.Content> Messages to read!!
 
-                    <Icon name="envelope outline" size="big" />
+                    <Icon name="envelope outline" className="ms-4"size="big" />                    
+                      <Feed.Date content={moment(messages[0].createdAt).startOf('hour').fromNow()} className="mt-0 mb-3" />
+                      </Feed.Content> :
+                      <div>
+                  <p className="ms-4 ">All messages readed !</p>
+                  <p className="text-center"> Old messages </p> 
+                  </div>   
                   }
 
 
-                  {messagesSomeToRead && messages[0].user.id != user.id? <Feed.Content> You have messages to read
-                      <Feed.Date content={moment(messages[0].createdAt).startOf('hour').fromNow()} className="mt-0 mb-3" />
-
-                  </Feed.Content> : <p>All messages readed!</p>}
+               
                 </Feed.Event>
                 <>
 
-                  <Feed.Content> Old messages    </Feed.Content>
+                  
                
 
                   {messagesRead.map(message => (

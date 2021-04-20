@@ -14,7 +14,7 @@ export const detail = (id) => http.get(`/users/${id}`)
 
 export const remove = (id) => http.delete(`/users/${id}`)
 
-export const update = (user) => http.patch(user)
+export const update = (user, id) => http.put(`/form-user/${id}`, { user, id})
 
 
   

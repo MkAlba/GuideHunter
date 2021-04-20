@@ -218,7 +218,7 @@ const HomeGuides = () => (
             </p>
           </Grid.Column>
           <Grid.Column floated='right' width={6}>
-            <Image  size = "huge" src='https://res.cloudinary.com/dnbkitbqa/image/upload/v1618432084/GuidesHunter/htwewsjo6u6iuo0xjlc7.jpg'
+            <Image  size = "huge" src='https://res.cloudinary.com/dnbkitbqa/image/upload/v1618925005/GuidesHunter/t01eve0kfavmuhzhdjhc.jpg'
               
               
              />
@@ -242,12 +242,16 @@ const HomeGuides = () => (
             <p style={{ fontSize: '1.33em' }}>That is what they all say about us</p>
           </Grid.Column>
           <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
-            <Header as='h3' style={{ fontSize: '2em' }}>
-              "I shouldn't have gone with their competitor."
+            <Header as='h3' style={{ fontSize: '1.80em' }}>
+              "After 15 years I can contact directly to tourist"
             </Header>
-            <p style={{ fontSize: '1.33em' }}>
-              <Image avatar src='/images/avatar/large/nan.jpg' />
-              <b>Nan</b> Chief Fun Officer Acme Toys
+            <p >
+              <Image style={{ fontSize: '2.33em' }} avatar src='https://res.cloudinary.com/dnbkitbqa/image/upload/v1618432084/GuidesHunter/htwewsjo6u6iuo0xjlc7.jpg' />
+              <b style={{ fontSize: '1.33em' }}> March Thomas</b>  
+              
+                 
+            
+             
             </p>
           </Grid.Column>
         </Grid.Row>
@@ -274,7 +278,7 @@ const HomeGuides = () => (
           horizontal
           style={{ margin: '3em 0em', textTransform: 'uppercase' }}
         >
-          <a href='#'>Case Studies</a>
+          <a href='/tours'>Tours from our Guide</a>
         </Divider>
 
         <Header as='h3' style={{ fontSize: '2em' }}>

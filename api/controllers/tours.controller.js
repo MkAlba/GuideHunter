@@ -62,6 +62,26 @@ module.exports.update = (req, res, next) => {
 
 
 
+module.exports.uploadImages = async(req, res) => {
+
+    const images = []
+
+      const files = req.files;      
+      for (const file of files) {
+        const {path} = file;
+        images.push(path)} 
+
+        
+
+
+}
+
+
+
+
+
+
+
 module.exports.listByGuide = (req, res, next) => {
 
 }

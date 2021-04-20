@@ -43,11 +43,11 @@ const tourSchema = new Schema({
         required: 'Duration is required.'
     },
 
-    owner : {
+    owner: {
         ref: Guide.modelName,
         type: mongoose.Types.ObjectId,
         required: 'Guide is required.'
-        },
+    },
 
     start: {
         type: Date,
@@ -78,6 +78,10 @@ const tourSchema = new Schema({
 
         ],
 
+    comments: {
+        type: String
+    },
+
     ratingsTour: {
         type: Number,
         min: [1, 'Rating must be above 1.0'],
@@ -91,7 +95,8 @@ const tourSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    
+
+
 }, {
     timestamps: true,
     toJSON: {

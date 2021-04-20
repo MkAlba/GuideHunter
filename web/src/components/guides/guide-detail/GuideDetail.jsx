@@ -14,7 +14,7 @@ function GuideDetail() {
   const history = useHistory()
  const params = useParams() 
   const [guide, setGuide] = useState()
-  const { user, isAuthenticated } = useContext(AuthContext)
+  const {  isAuthenticated } = useContext(AuthContext)
 
   useEffect(() => {
     //component didmount

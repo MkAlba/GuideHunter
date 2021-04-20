@@ -79,11 +79,11 @@ const validations = {
 }
 
 
-function GuideForm({ guide: guideToEdit = {}, languages }) {
+function GuideForm({ guide: guideToEdit = {} }) {
 
 
   const history = useHistory();
-  const { user, isAuthenticated } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -97,6 +97,7 @@ function GuideForm({ guide: guideToEdit = {}, languages }) {
       phoneNumber: '',
       experience: '',
       avatar: '',
+      images:'',
       languages: [],
       ...guideToEdit
     },
@@ -139,14 +140,25 @@ function GuideForm({ guide: guideToEdit = {}, languages }) {
     })
   }
 
+  
+ /* async function onClick(e) {
+    e.preventDefault()
+    const id = guide.id                           
+      history.replace(`/guides/${id}`)}
+*/
+
+
 
   const handleSubmit = async (event) => {
+    
     event.preventDefault();
+    
 
     if (isValid()) {  //si no hay errores entonces creamos al guía
      
       try {
         const guideData = {...state.guide};
+        
         
         guideData.languages = guideData.languages.map(language => language.trim()) || [];
         
@@ -174,30 +186,7 @@ function GuideForm({ guide: guideToEdit = {}, languages }) {
     }
   }
 
-
-  /* guidesService.create(this.state.guide)
-     .then(guide => this.setState(guide))
-     .catch(error => {
-       const { message, errors } = error.response?.data || { message: error.message };
-       this.setState({
-         errors: {
-           ...errors,
-           title: !errors && message
-         },
-         touch: {
-           ...errors,
-           title: !errors && message
-         }
-       })
-     })
- }
-}*/
-
-
-
-
-
-  const handleBlur = (event) => {  //esta hace que si tocamos en el formulario ya nos deje como inválido si no se completa el campo
+  const handleBlur = (event) => {  
     const { name } = event.target;
     setState((state) => ({
       ...state,
@@ -209,20 +198,48 @@ function GuideForm({ guide: guideToEdit = {}, languages }) {
   }
 
 
-
-
-
-
-  const isValid = () => {  //funcion que comprueba que no hay errores
-    const { errors } = state;
+  const isValid = () => {  
    
+    const { errors } = state;   
+    console.log(errors)
     return !Object.keys(errors).some(error => errors[error]);
   }
 
+  
+ const onFileChange = (event) => {
+   console.log(event.target.files)
 
+  
+   let fileName  
+
+   if (event.target.files && event.target.files.length > 1) 
+    {
+      
+     fileName = Array.from(event.target.files).map(({name}) => name) || [] 
+    
+     }
+
+   console.log(fileName)
+
+    setState(state => { 
+
+      return {
+      ...state,
+      guide: {
+        ...state.guide,
+        images: fileName
+      },
+      errors: {
+        ...state.errors,
+        images: validations.images && validations.images(event.target.files),
+      }
+      
+       }
+      })
+}
 
   const { guide, errors, touch } = state;
-
+console.log(guide)
 
   return (
     <Container>
@@ -374,6 +391,16 @@ function GuideForm({ guide: guideToEdit = {}, languages }) {
 
           </div>
 
+          <div className="mt-5 " style={{ width: "600px" }}>
+
+          <h3>UPLOAD PHOTOS</h3>
+          <h4>We recommend to to upload 4 photos at least!! </h4>
+          <div className="form-group">
+                            <input type="file" name="images" onChange={onFileChange} multiple />
+                      </div>
+
+        </div>
+
 
 
          
@@ -383,7 +410,7 @@ function GuideForm({ guide: guideToEdit = {}, languages }) {
                     setModalShow(true);
                   }}>
                   <span className="d-none d-sm-inline">Connect with customers!! </span></Button>}
-
+                  
 
 
                 <Acceptation
@@ -394,18 +421,15 @@ function GuideForm({ guide: guideToEdit = {}, languages }) {
 
           {guide.id &&
 
-            <Button outline color="secondary" className="mt-3" >Update Profile</Button>
+            <Button 
+            onClick = {handleSubmit}
+            outline color="secondary"
+             className="mt-3" >Update Profile</Button>
             }
 
         </form>
 
-        <div className="mt-5 " style={{ width: "600px" }}>
-
-          <h3>UPLOAD PHOTOS</h3>
-          <h4>We recommend to to upload 4 photos at least!! </h4>
-
-
-        </div>
+        
 
       </div>
     </Container>

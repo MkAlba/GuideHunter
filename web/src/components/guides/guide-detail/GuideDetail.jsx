@@ -6,6 +6,8 @@ import { AuthContext } from './../../contexts/AuthStore';
 import { MessageForm } from './../../messages/MessageForm';
 
 
+const constants = require('../../../constantsWeb')
+
 
 
 
@@ -86,6 +88,7 @@ function GuideDetail() {
                   </div>
                 </div>
 
+
               </div>
               <div className="col-md-8">
                 <div className="card mb-3">
@@ -127,9 +130,9 @@ function GuideDetail() {
                             <li key={language} className="card-text">{language}</li>
                           ))}
                       </div>
-                    </div>
-
-
+                    </div>                    
+<img src={guide.images[0]} alt="Admin" className="rounded-circle" width="230" />
+<img src={guide.images[1]} alt="Admin" className="rounded-circle" width="230" />
 
 
                   </div>

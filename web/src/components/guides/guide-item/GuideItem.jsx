@@ -4,8 +4,12 @@ import Section from './../../section/section';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthStore';
 import { Card, Image, Dropdown } from "semantic-ui-react";
+import {countryOptions} from '../../../constantsWeb';
+
+
 const moment = require('moment');
-const constants = require('../../../constantsWeb')
+
+
 
 
 
@@ -14,7 +18,7 @@ const constants = require('../../../constantsWeb')
 function GuideItem({ name, surname, owner, email, createdAt, guideLicense, phoneNumber, experience, avatar, images, languages, id, experienceMaxChars, onClickDelete }) {
 
   const { user } = useContext(AuthContext);
-  console.log(user)
+  
 
   return (
 
@@ -32,7 +36,7 @@ function GuideItem({ name, surname, owner, email, createdAt, guideLicense, phone
             <Dropdown
               multiple
               name="languages"
-              options={constants.COUNTRY_OPTIONS}
+              options={countryOptions}
               value={languages}
             />
 

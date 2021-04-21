@@ -89,8 +89,6 @@ function UserToEdit({...editUser}) {
   const isValid = () => {
     const { errors } = state;
 
-    
-    console.log(errors)
     return !Object.keys(errors).some(error => errors[error]);
 
   }
@@ -154,22 +152,20 @@ function UserToEdit({...editUser}) {
       return errors.password2 = "Password does not match"
 
     }
-    console.log(state.user)
+
       
     if (isValid()) {
     
       try {
         const  userData  = {...state.user};
         const { id } = params;
-        console.log(userData)
-        const user = await update(userData, id );
-        console.log(user)
-        console.log(userData.id)
+        
+        const user = await update(userData, id );        
         history.push(`/users/${user.id}`);  //`/users/${user.id}`
       }
       catch (error) {//esos errores son al utilizar el servicio al ir  servidor lo deja axios
         const { message, errors } = error.response?.data || error;
-        console.error(errors);
+        
         setState(state => ({
           ...state,
           errors: {

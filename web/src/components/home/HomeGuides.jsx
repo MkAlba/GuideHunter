@@ -210,11 +210,10 @@ const HomeGuides = () => (
               Just contact them and they will offer a <strong>exclusive</strong> visit at a Custom rate, 
             </p>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              We Make Bananas That Can Dance
+              Not on the Line!!
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              Yes that's right, you thought it was the stuff of dreams, but even bananas can be
-              bioengineered.
+            only licensed guides can help you to skip the long lines in the famous monuments, saving you time, or to arrive to the places when they are less packed with big tour groups. Spend time enjoying the sight, not on the line!
             </p>
           </Grid.Column>
           <Grid.Column floated='right' width={6}>

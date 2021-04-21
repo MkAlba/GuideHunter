@@ -48,9 +48,26 @@ module.exports.detail = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
 
-    if (req.file) {
-        req.body.avatar = req.file.url
+    console.log(req.body)
+
+        req.body.languages = typeof(req.body.languages) === Array ? req.body.languages : req.body.languages.split(',')
+
+    if (req.files) {
+
+        if (req.files.images) {
+
+                req.body.images = req.files.images.map(file => file.secure_url);
+
+        } 
+        
+        if (req.files.avatar) {
+            
+                req.body.avatar = req.files.avatar[0].secure_url
+        }
+
+       
     }
+    req.body._id = req.user.id
 
     Guide.create(req.body)
 
@@ -82,10 +99,24 @@ module.exports.delete = (req, res, next) => {
 
 module.exports.update = (req, res, next) => {
 
-console.log(req.body)
-console.log('aaaaaaaaaaaaaa')
-    if (req.file) {
-        req.body.avatar = req.file.url[0]
+    console.log(req.body)
+
+        req.body.languages = typeof(req.body.languages) === Array ? req.body.languages : req.body.languages.split(',')
+
+    if (req.files) {
+
+        if (req.files.images) {
+
+                req.body.images = req.files.images.map(file => file.secure_url);
+
+        } 
+        
+        if (req.files.avatar) {
+            
+                req.body.avatar = req.files.avatar[0].secure_url
+        }
+
+       
     }
 
    // delete req.body.id;
@@ -93,10 +124,7 @@ console.log('aaaaaaaaaaaaaa')
     delete req.body.updatedAt;
 
     const { id } = req.body
-    const {images} = req.body
-    console.log(images)
-    
-
+         
     //con esto le decioms que en el Json nos devuelva el creado
     Guide.findById(id) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
         .then(guide => {
@@ -113,31 +141,6 @@ console.log('aaaaaaaaaaaaaa')
 
 
 module.exports.uploadImages = async(req, res) => {
-
-    const images = []
-
-      const files = req.files;      
-      for (const file of files) {
-        const {path} = file;
-        images.push(path)} 
-
-        Guide.create({
-            ...req.body, 
-            business: req.params.id,
-            author: req.user.id,
-            images,
-          })      
-          .then((service) => res.redirect(`/professional/${req.user.id}`))      
-          .catch((error) => {
-            if (error instanceof mongoose.Error.ValidationError) {
-              res.render('intranetProfessional/services/newService', {
-                 errors: error.errors,
-                 service: req.body,
-              });
-            } else {
-              next(error);
-            }
-          });
-
+ 
 
 }

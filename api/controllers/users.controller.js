@@ -37,6 +37,7 @@ module.exports.register = (req, res, next) => {
 
 
 module.exports.login = (req, res, next) => {
+  
   passport.authenticate('local-auth', (error, user, validations) => {
     
     if (error) {
@@ -47,7 +48,7 @@ module.exports.login = (req, res, next) => {
       
       req.login(user, error => {
         
-        console.log(user)
+    
         if (error) next(error)
         else res.json(user)
       })
@@ -87,7 +88,8 @@ module.exports.list = (req, res, next) => {
   if (req.query.name) {
     criteria.name = req.query.name
   }
-  User.find(criteria) //no hay criterio de busqueda
+  User.find(criteria)
+    .populate('guide') //no hay criterio de busqueda
     .then(users => res.status(200).json(users)) //recojo todos los eventos y lo devuelvo
     .catch(next)
 }
@@ -109,32 +111,40 @@ module.exports.detail = (req, res, next) => {
 
 
 module.exports.update = (req, res, next) => {
-
+  
   if (req.file) {
     req.body.avatar = req.file.url
 }
-  
- 
-const id = req.body.id
+const {id} = req.params
 
-//console.log(req.body)
+console.log(id)
 
-  console.log(req.params)
-  console.log(id)
-console.log(req.body)
+User.findById(id) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
+        .then(user => {
 
-delete req.body.id
+          console.log(user)
+            if (user) {
+                Object.assign(user, req.body)
+                return user.save()
+                    .then(user => res.json(user))
+            }
+            else next(createError(404, 'User not found'))
+        })
+        .catch(next)
+}
 
-  User.findByIdAndUpdate( {_id : req.params.id} , { $set: req.body }, { new: true}) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
+  /*User.findByIdAndUpdate( id ,  req.body , { new: true}) //con run queremos que antes de guarlardlo en base de datos ejecute los validadores de mongoose
       
     .then(user => {
+
+      console.log(user)
       if (user) res.status(201).json(user)
       
       else next(createError(404, 'User not found'))
     })
     .catch(next)
 }
-
+*/
 
 module.exports.delete = (req, res, next) => {
   User.findByIdAndDelete(req.params.id)

@@ -48,7 +48,7 @@ function ToursList(minSearchChars) {
   const handleSearch = search => setSearch(search);
   
   const { tours,loading } = state;
-
+console.log(state)
   return (
     
      <section className=" container  ">

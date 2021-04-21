@@ -186,28 +186,31 @@ function UsersProfile() {
                                     <div className="card-body">
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <h6 className="mb-0">Username</h6>
+                                                <h6 className="mb-0">Name</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                                {user?.userName}
+                                                {user?.guide?.name}
+                                            </div>
+                                        </div>
+                                        
+                                        <hr />
+
+                                        <div className="row">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-0">Surname</h6>
+                                            </div>
+                                            <div className="col-sm-9 text-secondary">
+                                                {user?.guide?.surname}
                                             </div>
                                         </div>
                                         <hr />
+
                                         <div className="row">
                                             <div className="col-sm-3">
                                                 <h6 className="mb-0">Email</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                                {user?.email}
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div className="row">
-                                            <div className="col-sm-3">
-                                                <h6 className="mb-0">Phone</h6>
-                                            </div>
-                                            <div className="col-sm-9 text-secondary">
-                                                {user?.telephone}
+                                                {user?.guide?.email}
                                             </div>
                                         </div>
                                         <hr />
@@ -216,7 +219,21 @@ function UsersProfile() {
                                                 <h6 className="mb-0">Mobile</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                                (320) 380-4539
+                                                {user?.guide?.telephone ? user?.guide?.telephone 
+                                                :
+                                                <p>We recommend you to update a PhoneNumber</p> }
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div className="row">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-0">Languages</h6>
+                                            </div>
+                                            <div className="col-sm-9 text-secondary">
+                                            {user?.guide.languages
+                          .map(language => (
+                            <li key={language} className="card-text">{language}</li>
+                          ))}
                                     </div>
                                         </div>
                                         <hr />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router';
 import {
     Button,
@@ -12,9 +12,9 @@ import {
     Message
 
 } from 'semantic-ui-react'
-
-import { create, update } from '../../services/tours-service'
-
+import { AuthContext } from './../contexts/AuthStore';
+import { create, update } from '../../services/tours-service';
+import { categories } from '../../constantsWeb'
 
 const validations = {
 
@@ -67,17 +67,14 @@ const validations = {
 function TourForm({ tour: tourToEdit = {} }) {
 
     const history = useHistory();
+    const { user } = useContext(AuthContext)
 
 
     const [state, setState] = useState({
 
         tour: {
             title: '',
-            category: [
-                { name: "modernism", value: "modernism", show: false, displayValue: " Modernism" },
-                { name: "gothic", value: "gothic", show: false, displayValue: " Gothic " },
-                { name: "gastronomic", value: "gastronomic", show: false, displayValue: " Gastronomic " }
-            ],
+            category: [...categories],
             price: '',
             start: '',
             owner: '',
@@ -102,7 +99,13 @@ function TourForm({ tour: tourToEdit = {} }) {
 
 
 
-    const handleChange = (event, result) => {       let { name, value } = result || event.target;
+    const handleChange = (event, result) => {
+        let { name, value } = result || event.target;
+
+        if (event.target.files) {
+
+            value = event.target.files[0]
+        }
 
         setState(state => {
             return {
@@ -120,31 +123,29 @@ function TourForm({ tour: tourToEdit = {} }) {
     }
 
 
- /*   async function onClick(e) {
-        e.preventDefault()
-                                   
-          history.replace(`/home`)}
-    
-    
-
-
-
-*/
-
-
     const handleSubmit = async (event) => {
 
-        console.log(event)
-        console.log(state)
         event.preventDefault();
-
+        console.log(event)
         if (isValid()) {
             try {
+
                 const tourData = { ...state.tour };
+
+
+                tourData.category = tourData.category.filter(type => type.show).map(item => item.name)
+
                 tourData.category = tourData.category.map(category => category.trim()) || [];
+
+                tourData.owner = user.id
+
                 const tour = tourData.id ? await update(tourData) : await create(tourData);
-                history.push(`/tours/${tour.id}`);
-            } catch (error) {
+                history.push(`/tours`);
+
+            }
+
+
+            catch (error) {
                 const { message, errors } = error.response?.data || error;
 
                 setState(state => ({
@@ -164,7 +165,9 @@ function TourForm({ tour: tourToEdit = {} }) {
 
     const handleItemClick = (event, data, i) => {
         const { category } = state.tour;
+
         category[i].show = !category[i].show;
+
         setState(state => {
 
             return {
@@ -175,7 +178,19 @@ function TourForm({ tour: tourToEdit = {} }) {
     };
 
 
+    const onFileChange = (event) => {
+        console.log(event)
+        setState(state => {
 
+            return {
+                ...state,
+                tour: {
+                    ...state.tour,
+                    images: event.target.files
+                }
+            }
+        })
+    }
 
 
     const handleBlur = (event) => {
@@ -189,248 +204,194 @@ function TourForm({ tour: tourToEdit = {} }) {
         }));
     }
 
-
     const isValid = () => {
-        console.log('bbbbbbbbbbbbbbb')
-        const { errors } = state;
 
-        console.log(errors)
+        const { errors } = state;
 
         return !Object.keys(errors).some(error => errors[error]);
     }
 
+
+
     const { tour, errors, touch } = state
-    console.log(tour)
+
+    console.log(state)
+
     return (
 
-        <Container>
-            <Grid celled='internally' mobile={16} tablet={8} computer={4}>
-                <Grid.Row>
-                    <Grid.Column
-                        width={4}
-                        verticalAlign='middle'>
-                        <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                        <Divider />
-                        <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                        <Divider />
-                        <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+  
+            <Grid celled='internally'  >
+            <Grid.Row>
+
+                <Grid.Column
+                    centered
+                    width={7}>
+                    <Form >
+                        <Form.Group widths='equal'>
+                            <Form.Input
+                                name="title"
+                                type="text"
+                                value={tour.title}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                required
+                                label='ROUTE NAME'
+                                placeholder='Route Name......'
+                            />
+
+                        </Form.Group>
+
+                        <Form.Group inline>
+
+                            <label>CATEGORY: </label>
+
+                            <div>
+                                {tour.category.map((item, i) => (
+                                    <div key={i}>
+                                        <Form.Checkbox
+                                            name={item.name}
+                                            onChange={(e, v) => handleItemClick(e, v, i)}
+                                            value={item.show}
+                                            defaultChecked={item.show}
+                                            label={item.displayValue}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+
+                        </Form.Group>
+
+                        <Form.Input
+                            name="description"
+                            type="text"
+                            required
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={tour.description}
+                            control={TextArea}
+                            rows={6}
+                            label='What will you visit??'
+                            placeholder='Tell us more about your Tour...'
+                        />
 
 
+                        <Form.Group>
+                            <Form.Input
+                                name="duration"
+                                type="number"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                required
+                                fluid
+                                min="30.00"
+                                step="5.00"
+                                label='How many minutes aprox...'
+                                value={tour.duration}
+                                placeholder='In minutes'
+                            />
 
-                    </Grid.Column>
-
-
-                    <Grid.Column width={10}>
-                        <Form >
-                            <Form.Group widths='equal'>
-                                <Form.Input
-                                    name="title"
-                                    type="text"
-                                    value={tour.title}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    required
-                                    label='ROUTE NAME'
-                                    placeholder='Route Name......'
-                                />
-
-
-                            </Form.Group>
-
-                            <Form.Group inline>
-
-                                <label>CATEGORY: </label>
-
-                                <div>
-                                    {tour.category.map((item, i) => (
-                                        <div key={i}>
-                                            <Form.Checkbox
-                                                name={item.name}
-                                                onChange={(e, v) => handleItemClick(e, v, i)}
-                                                value={item.show}
-                                                defaultChecked={item.show}
-                                                label={item.displayValue}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-
-                            </Form.Group>
 
                             <Form.Input
-                                name="description"
-                                type="text"
+                                name="price"
+                                type="number"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                //value={tour.price}
                                 required
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={tour.description}
-                                control={TextArea}
-                                rows={6}
-                                label='What will you visit??'
-                                placeholder='Tell us more about your Tour...'
+                                fluid
+                                min="30.00"
+                                step="5.00"
+                                label='How much it cost?'
+                                placeholder='€'
+
+
                             />
+                        </Form.Group>
+
+                        <Form.Input
+                            name="comments"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            control={TextArea}
+                            rows={3}
+                            label='Comment'
+                            value={tour.comments}
+                            placeholder='Any other information?'
+                        />
 
 
-                            <Form.Group>
-                                <Form.Input
-                                   name="duration"
-                                   type="number"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}                                    
-                                    required
-                                    fluid
-                                    min="30.00"
-                                    step="5.00"
-                                    label='How many minutes aprox...'
-                                    value={tour.duration}
-                                    placeholder='In minutes'
-                                />
+                        <div className="input-group mb-2">
+                            <span className="input-group-text"><i className="fa fa-clock-o fa-fw"></i></span>
 
+                            <span className="input-group-text">Select a day</span>
+                            <input type="datetime-local" name="start" className={`form-control ${(touch.start && errors.start) ? 'is-invalid' : ''}`} placeholder="dd/mm/yyyy hh:mm"
+                                value={tour.start} onBlur={handleBlur} onChange={handleChange} />
+                            {touch.start && errors.start && <div className="invalid-feedback">{errors.start}</div>}
+                        </div>
 
-                                <Form.Input
-                                    name="price"
-                                    type="number"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    //value={tour.price}
-                                    required
-                                    fluid
-                                    min="30.00"
-                                    step="5.00"
-                                    label='How much it cost?'
-                                    placeholder='€'
-                                
+                        <label htmlFor="hidden-new-files" className="ui icon button">
+                            <i className="cloud icon"></i>
+    Open File
+  </label>
+                        <input type="file" name="images" id="hidden-new-files" onChange={onFileChange} multiple style={{ display: "none" }} />
+                        
 
-                                />
-                            </Form.Group>
-
-                            <Form.Input                                
-                                name="comments"                                
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                control={TextArea}
-                                rows={3}
-                                label='Comment'
-                                value={tour.comments}
-                                placeholder='Any other information?'
-                            />
-
-
-<div className="input-group mb-2">
-            <span className="input-group-text"><i className="fa fa-clock-o fa-fw"></i></span>
-            
-            <span className="input-group-text">Select a day</span>
-            <input type="datetime-local" name="start" className={`form-control ${(touch.start && errors.start) ? 'is-invalid' : ''}`} placeholder="dd/mm/yyyy hh:mm"
-              value={tour.start} onBlur={handleBlur} onChange={handleChange} />
-               {touch.start && errors.start && <div className="invalid-feedback">{errors.start}</div>}
-          </div>
-
-                            <Message
-                                success
-                                header='Form Completed'
-                                content="Tour finished!!"
-                            />
-                            <Form.Input  onClick = {handleSubmit} control={Button}>Submit</Form.Input>
-                        </Form>
-                    </Grid.Column>
-
+                        <Message
+                            success
+                            header='Form Completed'
+                            content="Tour finished!!"
+                        />
+                        <Form.Input onClick={handleSubmit} color="secondary" control={Button}>Submit</Form.Input>
+                    </Form>
+                </Grid.Column>
                 </Grid.Row>
+
+                <Grid celled='internally'>
+                    <Grid />
+                    {!tour?.id ?
+                        
+                            <div>
+                                <Grid.Column width={4}>
+                                    <Image size="small" src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+                                </Grid.Column>
+                                <Divider />
+
+                                <Grid.Column width={4}>
+                                    <Image size="small" src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+                                </Grid.Column   ><Divider />
+                                <Grid.Column width={4}>
+                                <Image size="small" src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                                </Grid.Column>
+                            </div>
+                        
+                        :
+                        <div>
+                            <Image src={tour.images[0]} />
+                            <Divider />
+                            <Image src={tour.images[1]} />
+                            <Divider />
+                            <Image src={tour.images[2]} />
+                        </div>
+
+                    }
+
+
+
+
+
+
+
+                </Grid>
 
 
 
             </Grid>
-        </Container>
+   
     )
 }
 
-
-
 export default TourForm;
 
-/* <Form.Group inline>
 
-                                <label>CATEGORY: </label>
-                                <Form.Field>
-                                <Radio
-
-                                    name="category"
-                                    toggle
-                                    label='Modernism'
-                                    value='Modernism'
-                                    checked={tour.category === 'Modernism'}
-                                    onChange={handleChange}
-                                />
-                                </Form.Field>
-
-
-                                <Form.Field>
-                                <Checkbox
-
-                                    name="category"
-                                    label='Gothic'
-                                    toggle
-                                    value='Gothic'
-                                    checked={tour.category === 'Gothic'}
-                                    onChange={handleChange}
-                                />
-                                </Form.Field>
-                                <Form.Field
-                                    control={Radio}
-                                    label='Gastronomic'
-
-                                    value={tour.category}
-                                    checked={tour.category === 'Gastronomic'}
-                                    onChange={handleChange}
-                                />
-                                <Form.Field
-                                    control={Radio}
-                                    label='Sea Side'
-
-                                    value={tour.category}
-                                    checked={tour.category === 'Sea Side'}
-                                    onChange={handleChange}
-                                />
-
-                            </Form.Group>
-                            <Form.Group inline>
-                            <Form.Field
-                                    control={Radio}
-                                    label='Sport'
-                                    toggle
-                                    value={tour.category}
-                                    checked={tour.category === 'Sport'}
-                                    onChange={handleChange}
-                                />
-                                <Form.Field
-                                    control={Radio}
-                                    label='Cultural'
-                                    value={tour.category}
-                                    checked={tour.category === 'Cultural'}
-                                    onChange={handleChange}
-                                />
-
-                                <Form.Field
-                                    control={Radio}
-                                    label='Museums'
-                                    value={tour.category}
-                                    checked={tour.category === 'Museums'}
-                                    onChange={handleChange}
-                                />
-                                <Form.Field
-                                    control={Radio}
-                                    label='Family'
-                                    value={tour.category}
-                                    checked={tour.category === 'Family'}
-                                    onChange={handleChange}
-                                />
-                                <Form.Field
-                                    control={Radio}
-                                    label='City Center'
-                                    value={tour.category}
-                                    checked={tour.category === 'City Center'}
-                                    onChange={handleChange}
-                                />
-
-                            </Form.Group>
-
-                            */

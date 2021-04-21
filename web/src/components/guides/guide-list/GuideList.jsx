@@ -4,7 +4,8 @@ import guidesService from '../../../services/guides-service';
 import GuideItem from '../guide-item/GuideItem';
 import Filter from './../../Filter';
 import { Dropdown, Grid } from 'semantic-ui-react';
-const constants = require('../../../constantsWeb')
+
+import {countryOptions} from '../../../constantsWeb'
 
 
 
@@ -117,7 +118,7 @@ function GuidesList({ minSearchChars }) {
               search
               selection
               name="languages"
-              options={constants.COUNTRY_OPTIONS}
+              options={countryOptions}
               placeholder='Select Languages'
               onChange={handleLanguage}
               closeOnChange={true}

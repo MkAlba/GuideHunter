@@ -20,7 +20,7 @@ const tourSchema = new Schema({
         }
     ],
 
-    location: {
+  /*  location: {
         type: {
             type: String,
             default: 'Point',
@@ -36,7 +36,7 @@ const tourSchema = new Schema({
                 message: props => `Invalid location coordinates`
             }
         }
-    },
+    },*/
 
     price: {
         type: Number,
@@ -69,11 +69,11 @@ const tourSchema = new Schema({
         type: String,
         required: 'Please, enter a description for this Tour.'
     },
-    image:
+    images:
         [
             {
                 type: String,
-                required: 'Please, provide an image from this rote.',
+                
             }
 
         ],

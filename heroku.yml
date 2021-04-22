@@ -2,5 +2,5 @@ build:
   docker:
     web: Dockerfile
 
-config:
-    REACT_APP_API_BASE_URL: https://guidehunter.herokuapp.com/api
+  config:
+    REACT_APP_API_BASE_URL: https://guide-hunter.herokuapp.com/api

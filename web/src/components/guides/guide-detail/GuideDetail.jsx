@@ -140,6 +140,9 @@ function GuideDetail() {
 
               </div>
 
+
+             
+
             </div>
             <div className="card flex mt-3 justify ">
               <div className="col-sm-12 ms-3 mt-3">

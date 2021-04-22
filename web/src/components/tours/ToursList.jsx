@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import TourItem from './TourItem';
 import {list} from '../../services/tours-service';
 import Filter from './../Filter';
+import { Grid, Container } from 'semantic-ui-react'
 
+function ToursList({minSearchChars}) {
 
-function ToursList(minSearchChars) {
   const [state, setState] = useState({
     tours: [],
     loading: false
@@ -13,16 +14,10 @@ function ToursList(minSearchChars) {
 
     useEffect(() => {
     
-
     async function fetchTours() {
-
-      setState(state => ({
-        ...state,
-        loading: true
-      }))
-  
+ 
       
-      const tours = await list();
+      const tours = await list(search);
 
      
       if (!isUnmounted) {
@@ -46,21 +41,48 @@ function ToursList(minSearchChars) {
   }, [search, minSearchChars]); 
 
   const handleSearch = search => setSearch(search);
+
+/*  ejemplo para buscar por fecha o otra cosa
+  useEffect(() => {
+
+    async function fetchGuides() {
+
+      const guides = await guidesService.list(null, languages);
+      if (!isUnmounted) {
+        setState({
+          guides: guides,
+          loading: false
+        })
+      }
+    }
+
+    let isUnmounted = false;
+
+    if (languages.length > 0) {
+      fetchGuides();
+    }
+
+    return () => {
+
+      isUnmounted = true;
+    }
+  }, [languages]);*/
+
   
   const { tours,loading } = state;
-console.log(state)
+
   return (
-    
-     <section className=" container  ">
+    <Container>
+     <Grid celled >
       
-      <div className="row row-cols-3">
-        <div className = "col-3">
+          <Grid.Row>
+          <Grid.Column width={3}>
         <Filter className="mb-3" onSearch={handleSearch} loading={loading} />
         <Filter className="mb-3" onSearch={handleSearch} loading={loading} />
-        <Filter className="mb-3" onSearch={handleSearch} loading={loading} />
-        <Filter className="mb-3" onSearch={handleSearch} loading={loading} />
-        <Filter className="mb-3" onSearch={handleSearch} loading={loading} />
-        </div>
+        </Grid.Column>
+
+        <Grid.Column width={12}>
+        
         <div className = "col">          
 
         {tours.map(tour => (
@@ -70,10 +92,20 @@ console.log(state)
             </div>
         ))}
       </div>
-      </div>
-      </section> 
-    
+      
+      </Grid.Column>
+
+        </Grid.Row>
+
+
+       
+      </Grid> 
+      </Container>
   )
+}
+
+ToursList.defaultProps = {
+  minSearchChars: 1
 }
 
 

@@ -13,24 +13,17 @@ import {countryOptions} from '../../../constantsWeb'
 
 function GuidesList({ minSearchChars }) {
 
-  //const history = useHistory()
-
-  
   const [state, setState] = useState({
     guides: [],
-    loading: true
+    loading: false
   });
 
   const [search, setSearch] = useState('');
   const [languages, setLanguages] = useState([])
 
 
-
-
-
   useEffect(() => {
-    // componentDidMount
-
+    
     async function fetchGuides() {
 
 
@@ -50,7 +43,7 @@ function GuidesList({ minSearchChars }) {
     }
 
     return () => {
-      // componentWillUnmount
+    
       isUnmounted = true;
     }
   }, [search, minSearchChars]);
@@ -150,7 +143,7 @@ function GuidesList({ minSearchChars }) {
 
   )
 
-}
+ }
 
 GuidesList.defaultProps = {
   minSearchChars: 1

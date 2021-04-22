@@ -17,7 +17,7 @@ function Filter({ className, onSearch, loading }) {
           <span className="input-group-text">
             <i className={`fa fa-${loading ? 'refresh fa-spin': 'search'}`}></i>
           </span>
-          <input type="text" name="name" name="experience" className="form-control" placeholder="Search by name..."
+          <input type="text" name="name"  className="form-control" placeholder="Search by name..."
             value={search} onChange={handleChange} />
         </div>
       </div>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import guidesService from '../../../services/guides-service';
 import GuideItem from '../guide-item/GuideItem';
 import Filter from './../../Filter';
-import { Dropdown, Grid } from 'semantic-ui-react';
+import { Dropdown, Grid, Container, Header } from 'semantic-ui-react';
 
 import {countryOptions} from '../../../constantsWeb'
 
@@ -97,6 +97,14 @@ function GuidesList({ minSearchChars }) {
 
 
   return (
+    <Container>
+ <Header
+        size='huge'
+        textAlign='center'>
+        Our Guide List
+        </Header>
+        <p  className="fs-5 text-center">All these guides are official guides, ready to show you the secrets of Barcelona.</p>
+      
     <Grid divided='vertically'>
 
       <Grid.Row columns={2}>
@@ -140,7 +148,7 @@ function GuidesList({ minSearchChars }) {
         </Grid.Row>
       </Grid.Row>
     </Grid>
-
+    </Container>
   )
 
  }

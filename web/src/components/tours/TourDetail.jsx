@@ -8,8 +8,9 @@ import { MessageForm } from './../messages/MessageForm';
 import { AuthContext } from '../contexts/AuthStore';
 
 import { CarouselProvider, Image, Slide, Slider } from "pure-react-carousel";
-import { Divider, Grid, Segment, Header } from "semantic-ui-react";
 import 'pure-react-carousel/dist/react-carousel.es.css';
+import { Divider, Grid, Segment, Header, Icon, Container } from "semantic-ui-react";
+
 
 
 
@@ -77,11 +78,16 @@ function TourDetail(props) {
 
     return (
 
-      
+<Container >
 
       <Grid columns={2} divided>
         <Grid.Row>
           <Grid.Column>
+            <Header as='h2' ><Icon name="photo" circular />
+              <Header.Content >
+                Tour Pictures
+              </Header.Content>
+            </Header>
             <Grid.Row>
               <CarouselProvider
                 naturalSlideWidth={6}
@@ -103,89 +109,97 @@ function TourDetail(props) {
                 <Divider />
                 <CustomDotGroup slides={3} />
               </CarouselProvider>
-            
+
             </Grid.Row>
 
-            {!user &&  <Segment 
+            {!user && <Segment
               as={Link}
               to={'/register'}
-              circular 
+              circular
               size="mini"
-              style={{ width: 70, height: 70}}>
-      <Header as='h2' >
-        Any question?
-        <Header.Subheader>Become GuideHunter member </Header.Subheader>
-      </Header>
-    </Segment>}
+              fluid
+              style={{ width: 70, height: 70 }}>
+              <Header as='h2' >
+                Any question?
+                    <Header.Subheader>Become GuideHunter member </Header.Subheader>
+              </Header>
+            </Segment>}
           </Grid.Column>
 
 
           <Grid.Column>
 
-            <Card className="d-flex">
+            <Card className="d-flex ">
 
 
-              <CardBody className="d-flex align-items-center">
+
+              <CardBody className="d-flex">
                 <div className="w-100">
-
+                  <Header as='h2' ><Icon name="info" circular className="mb-5" />
+                    <Header.Content >
+                      Tour Details
+                  </Header.Content>
+                  </Header>
                   <CardTitle tag="h6">
-                    <p className="text-decoration-none text-dark">{tour.title}</p>
+                    <h1 className="text-decoration-none" className="card-title">Tour Title: {tour.title}</h1>
                   </CardTitle>
 
-                  <CardSubtitle className="d-flex mb-3">
-                    <p className="flex-shrink-1 mb-0 card-stars text-xs text-right">
+                  <CardSubtitle className="d-flex mb-3 mt-2"> Rated with:
+                    <p className="flex-shrink-1 mb-0 card-stars text-xs text-right ms-2">
                       <Stars stars={tour.stars} />
                     </p>
 
                   </CardSubtitle>
-                  <p className="flex-grow-1 mb-0 text-muted text-sm">
+
+                  <h3 className="flex-grow-1 ">
                     {tour.description}
-                  </p>
+                  </h3>
 
+                  <CardText className="mt-4">
+                    <span className="h4 text-primary">Price: €{tour.price}</span>
+                    &nbsp;per person
+                    <p>            All taxes are included.</p>
+                  </CardText>
                   <CardText className="text-muted">
-                    <span className="h4 text-primary">${tour.price}</span>
-                    &nbsp;per night
-                 </CardText>
-                  <CardText className="text-muted">
-                    <span className="h5">{moment(tour.start).format('llll')} </span>
+                    <h3 className="h5">Day: {moment(tour.start).format('MMM Do YY')} </h3>
+                    <h3 className="h5">Hour: {moment(tour.start).format('LT')} </h3>
 
                   </CardText>
                   <CardText className="text-muted">
-                    <span className="h5">{tour.duration} Minutes</span>
+                    <span className="h5">Duration: {tour.duration} Minutes</span>
 
-                 
-              <div className="mt-5 d-flex align-items-center card-img-overlay-bottom ">
-                <Media className="text-white text-sm align-items-center">
-                  <div className="avatar avatar-border-white me-4">
-                    <Link
-                    to={`/guides/${tour.owner.id}`}>
-                    <img
-                      src={tour.owner.avatar}
-                      alt={tour.person}
-                      
-                      
-                      layout="fixed"
-                      width={90}
-                      height={90}
-                      className="img-fluid"
-                    />
-</Link>
-                  </div>
-                  {tour.owner.name}
-                </Media>
-                <div>
-                  A tour by {tour.owner.name}
-                </div>
-              </div>
 
-              
-                  <MessageForm />
+                    <div className="mt-5 d-flex align-items-center  ">
+                      <Media className="text-white text-sm align-items-center">
+                        
+                          <Link
+                            to={`/guides/${tour.owner.id}`}>
+                            <img
+                              src={tour.owner.avatar}
+                             
+                              alt={tour.person}
+                              className=" img-fluid rounded shadow-lg"
+                              width={150}
+                              height={150}
+                              borderRadius = {150}
+                              
+                              
+                            />
+                          </Link>
+                                       
+                      </Media>
+                      <div className='ms-2'>
+                        A tour by {tour.owner.name}. Check my Profile to view all my tours.
+                      </div>
+                    </div>
+
+                    <MessageForm />
 
                   </CardText>
-                  
+
                 </div>
               </CardBody>
-           
+
             </Card>
 
 
@@ -194,9 +208,9 @@ function TourDetail(props) {
 
         </Grid.Row>
 
-        
-      </Grid>
 
+      </Grid>
+      </Container>
     )
   }
 }

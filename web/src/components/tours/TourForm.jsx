@@ -219,7 +219,7 @@ function TourForm({ tour: tourToEdit = {} }) {
 
     return (
 
-  
+  <Container>
             <Grid celled='internally'  >
             <Grid.Row>
 
@@ -388,7 +388,7 @@ function TourForm({ tour: tourToEdit = {} }) {
 
 
             </Grid>
-   
+            </Container>
     )
 }
 

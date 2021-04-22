@@ -6,17 +6,17 @@ import {
   List,  
   Segment,  
 } from 'semantic-ui-react'
-
+import '../footer/Footer.css'
  
 
-function Footer() {
+function Footer({children}) {
     
 
     return(
    
     <Container 
-      position 
-      fluid
+       
+      width= {100}
       position="absolute"
       bottom = '0'
      
@@ -30,7 +30,7 @@ function Footer() {
         style={{ 
           
            }}>
-      <Container>
+     
         <Grid divided inverted stackable>
           <Grid.Row>
             <Grid.Column width={3}>
@@ -61,8 +61,8 @@ function Footer() {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </Container>
-    </Segment>
+  
+        </Segment>
       </Container>
  )
 

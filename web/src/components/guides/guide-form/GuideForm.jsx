@@ -224,9 +224,9 @@ function GuideForm({ guide: guideToEdit = {} }) {
   console.log(guide)
 
   return (
-    <Container>
+    <Container className=" ms-4 me-4">
 
-      <div className="container mt-5 ms-4 me-4">
+      <div className="container mt-5 ">
         {user?.role === 'user' &&
           <div className="row">
             <div class="col">
@@ -243,7 +243,7 @@ function GuideForm({ guide: guideToEdit = {} }) {
           </div>}
       </div>
       <Divider horizontal>Guide Details</Divider>
-      <div className="container mt-4 ms-4 me-4" >
+      <div className=" mt-4 " >
         <form onSubmit={handleSubmit} >
           <div className="row g-2 mt-2 mb-3">
             <div className="col-md">

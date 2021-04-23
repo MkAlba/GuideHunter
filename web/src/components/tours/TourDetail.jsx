@@ -112,7 +112,7 @@ function TourDetail(props) {
 
             </Grid.Row>
 
-            {!user && <Segment
+            {!user ? <Segment
               as={Link}
               to={'/register'}
               circular
@@ -123,7 +123,12 @@ function TourDetail(props) {
                 Any question?
                     <Header.Subheader>Become GuideHunter member </Header.Subheader>
               </Header>
-            </Segment>}
+            </Segment> :
+            
+            
+            <MessageForm />
+            
+            }
           </Grid.Column>
 
 
@@ -193,7 +198,7 @@ function TourDetail(props) {
                       </div>
                     </div>
 
-                    <MessageForm />
+                   
 
                   </CardText>
 

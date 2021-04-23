@@ -8,7 +8,7 @@ import {
 
 } from 'reactstrap';
 import { AuthContext } from './../../contexts/AuthStore';
-import { Dropdown, Container, Divider, Button, Image, Grid } from "semantic-ui-react";
+import { Dropdown, Container, Divider, Button, Image, Grid, Segment, Icon, Label } from "semantic-ui-react";
 
 import Acceptation from './Acceptation';
 
@@ -24,8 +24,8 @@ const validations = {
     let message;
     if (!value) {
       message = 'Name is required';
-    } else if (value && value.length < 5) {
-      message = 'Name needs at least 5 characters'
+    } else if (value && value.length < 3) {
+      message = 'Name needs at least 3 characters'
     }
     return message;
   },
@@ -215,18 +215,17 @@ function GuideForm({ guide: guideToEdit = {} }) {
         guide: {
           ...state.guide,
           images: event.target.files
-        }       
+        }
       }
     })
   }
 
   const { guide, errors, touch } = state;
-  console.log(guide)
 
   return (
-    <Container className=" ms-4 me-4">
+    <Container >
 
-      <div className="container mt-5 ">
+      <div className="container mt-4 ">
         {user?.role === 'user' &&
           <div className="row">
             <div class="col">
@@ -242,8 +241,8 @@ function GuideForm({ guide: guideToEdit = {} }) {
 
           </div>}
       </div>
-      <Divider horizontal>Guide Details</Divider>
-      <div className=" mt-4 " >
+      <Divider className=" mt-5 " horizontal>Guide Details</Divider>
+      <div  >
         <form onSubmit={handleSubmit} >
           <div className="row g-2 mt-2 mb-3">
             <div className="col-md">
@@ -287,8 +286,6 @@ function GuideForm({ guide: guideToEdit = {} }) {
             </div>
 
 
-
-
             <div className="col-md">
               <div className="form-floating">
                 <input className={`form-control ${(touch.email && errors.email) ? 'is-invalid' : ''}`} id="floatingEmail"
@@ -310,7 +307,7 @@ function GuideForm({ guide: guideToEdit = {} }) {
                   value={guide.phoneNumber}
                   onChange={handleChange}
                   onBlur={handleBlur} />
-                  
+
                 <label htmlFor="floatingPhoneNumber"> Optional Mobile</label>
                 <div className="invalid-feedback">{errors.phoneNumber}</div>
               </div>
@@ -376,26 +373,46 @@ function GuideForm({ guide: guideToEdit = {} }) {
 
 
 
-          {!guide.id &&
-            <Button type="submit" color="outline-primary" block className="btn-social mt-3"
-              onClick={() => {
-                setModalShow(true);
-              }}>
-              <span className="d-none d-sm-inline">Connect with customers!! </span></Button>
-              }
-          
-          
 
           <Divider className="mt-5" horizontal>Manage your Photos</Divider>
 
-            <h3 className="text-center">We recommend to to upload 3 photos at least!! </h3>
-            <h4 className="mt-0 text-center">Choose photos that describe you or photos with other previous tourists. </h4>
+          <Segment
 
-            <div className="form-group" className="mt-2 text-center">
-              <input type="file" name="images"  onChange={onFileChange} multiple />
+            size="">
+            <div classNAme="panel">
+              <h3 className="text-center">We recommend to to upload 3 photos at least!! </h3>
+              <h4 className="mt-0 text-center">Choose photos that describe you or photos with other previous tourists. </h4>
+
+              <div className="form-group" className="mt-2 text-center">
+                <input type="file" name="images" onChange={onFileChange} multiple />
+              </div>
             </div>
+          </Segment>
+          {!guide.id &&
+            <Button
+              as='div'
+              labelPosition='right'
+              onClick={() => {
+                setModalShow(true);
+              }}>
+              <Button basic color='brown'>
+                <Icon name='save' />
+              </Button>
+              <Label as='a' basic color='brown' pointing='left'>
+                Save
+           </Label>
+            </Button>
 
-          
+
+
+
+
+
+
+
+          }
+
+
           <Acceptation
             show={modalShow}
             onHide={() => setModalShow(false)}
@@ -405,6 +422,7 @@ function GuideForm({ guide: guideToEdit = {} }) {
           {guide.id &&
 
             <Button
+              style={{ textAlign: "center" }}
               onClick={handleSubmit}
               outline color="secondary"
               className="mt-5" >Update Profile</Button>
@@ -412,29 +430,30 @@ function GuideForm({ guide: guideToEdit = {} }) {
 
         </form>
 
-        {guide.id && 
-        
-       
-        guide.images
-                          .map(image => (
-                            
-                            <Image.Group size='small'>
-                              <Grid.Column 
-                              rows={3}
-                              >
-                              <Grid.Row
-                              >
-                            <Image src={image} key={image}></Image>
-                            </Grid.Row>
-                            </Grid.Column>
-                            </Image.Group>
-                        
-                          ))
-                          
-                          
-                         }
+        {guide?.id &&
 
-      </div>          
+
+          guide.images
+            .map(image => (
+
+              <Image.Group size='small'>
+                <Grid.Column
+                  rows={3}
+                >
+                  <Grid.Row
+                  >
+                    <Image src={image} key={image}></Image>
+                  </Grid.Row>
+                </Grid.Column>
+              </Image.Group>
+
+            ))
+
+
+        }
+
+
+      </div>
     </Container>
 
   )

@@ -10,7 +10,7 @@ const tourSchema = new Schema({
     title: {
         type: String,
         required: 'A title is required.',
-        maxLength: [40, 'Max is 40 characters']
+        maxLength: [60, 'Max is 40 characters']
     },
     category: [
         {

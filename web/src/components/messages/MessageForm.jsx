@@ -46,16 +46,16 @@ export const MessageForm = (IdGuide) => {
 
   return (
     <div>
-      <Row>
-        <Col sm="12" md={{ size: 6, offset: 3 }} className="text-center mt-2">
+      <Row className=" mb-4">
+        <Col  md={{ size: 6, offset: 3 }} className="text-center mb-4 mt-2">
           {user && <h4>Message from {user.userName}</h4>}
         </Col>
       </Row>
       {user &&
-        <Row className="mt-4">
-          <Col sm="12" md={{ size: 6, offset: 3 }}>
+        <Row >
+          <Col  md={{ size: 10, offset: 1 }}>
 
-            <Form>
+            <Form className="mt-4 mb-4">
               <FormGroup>
                 <Input
                   type="textarea"

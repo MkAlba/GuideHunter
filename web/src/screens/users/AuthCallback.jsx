@@ -22,7 +22,7 @@ function AuthCallback() {
      isAuthenticated()
       replace('/guides')
     }
-  }, [user, replace])
+  }, [user, isAuthenticated, replace])
 
   return null
 }

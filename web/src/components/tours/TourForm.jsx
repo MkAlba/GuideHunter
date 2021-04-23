@@ -7,8 +7,7 @@ import {
     Divider,
     TextArea,
     Grid,
-    Image,
-    Container,
+    Image,  
     Message
 
 } from 'semantic-ui-react'
@@ -40,6 +39,14 @@ const validations = {
         let message;
         if (!value) {
             message = 'Start date is required';
+        }
+        return message;
+    },
+
+    price: (value) => {
+        let message;
+        if (!value) {
+            message = 'A price is required';
         }
         return message;
     },
@@ -98,7 +105,6 @@ function TourForm({ tour: tourToEdit = {} }) {
     })
 
 
-
     const handleChange = (event, result) => {
         let { name, value } = result || event.target;
 
@@ -126,18 +132,17 @@ function TourForm({ tour: tourToEdit = {} }) {
     const handleSubmit = async (event) => {
 
         event.preventDefault();
-        console.log(event)
+       
         if (isValid()) {
             try {
 
                 const tourData = { ...state.tour };
 
-
                 tourData.category = tourData.category.filter(type => type.show).map(item => item.name)
 
                 tourData.category = tourData.category.map(category => category.trim()) || [];
 
-                tourData.owner = user.id
+                tourData.owner = user?.id
 
                 const tour = tourData.id ? await update(tourData) : await create(tourData);
                 history.push(`/tours`);
@@ -219,13 +224,20 @@ function TourForm({ tour: tourToEdit = {} }) {
 
     return (
 
-  <Container>
-            <Grid celled='internally'  >
+  
+            <Grid   
+            columns={2}          
+            celled='internally'
+            verticalAlign='middle' 
+            centered >
+
             <Grid.Row>
 
                 <Grid.Column
-                    centered
+                
+                    
                     width={7}>
+                        
                     <Form >
                         <Form.Group widths='equal'>
                             <Form.Input
@@ -237,7 +249,10 @@ function TourForm({ tour: tourToEdit = {} }) {
                                 required
                                 label='ROUTE NAME'
                                 placeholder='Route Name......'
-                            />
+                                className={`${(touch.title && errors.title) ? 'is-invalid' : ''}`} 
+                           
+                                />
+                                {touch.title && errors.title && <div className="invalid-feedback">{errors.title}</div>}    
 
                         </Form.Group>
 
@@ -272,7 +287,10 @@ function TourForm({ tour: tourToEdit = {} }) {
                             rows={6}
                             label='What will you visit??'
                             placeholder='Tell us more about your Tour...'
-                        />
+                            className={`${(touch.description && errors.description) ? 'is-invalid' : ''}`} 
+                           
+                            />
+                            {touch.description && errors.description && <div className="invalid-feedback">{errors.duration}</div>}    
 
 
                         <Form.Group>
@@ -288,7 +306,10 @@ function TourForm({ tour: tourToEdit = {} }) {
                                 label='How many minutes aprox...'
                                 value={tour.duration}
                                 placeholder='In minutes'
-                            />
+                                className={`${(touch.duration && errors.duration) ? 'is-invalid' : ''}`} 
+                           
+                                />
+                                {touch.duration && errors.duration && <div className="invalid-feedback">{errors.description}</div>}    
 
 
                             <Form.Input
@@ -296,16 +317,17 @@ function TourForm({ tour: tourToEdit = {} }) {
                                 type="number"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                //value={tour.price}
+                                value={tour.price}
                                 required
                                 fluid
                                 min="30.00"
                                 step="5.00"
                                 label='How much it cost?'
                                 placeholder='€'
-
-
-                            />
+                                className={`${(touch.price && errors.price) ? 'is-invalid' : ''}`} 
+                           
+                                />
+                                {touch.price && errors.price && <div className="invalid-feedback">{errors.description}</div>}    
                         </Form.Group>
 
                         <Form.Input
@@ -317,8 +339,10 @@ function TourForm({ tour: tourToEdit = {} }) {
                             label='Comment'
                             value={tour.comments}
                             placeholder='Any other information?'
+                            className={` ${(touch.comments && errors.comments) ? 'is-invalid' : ''}`} 
+                           
                         />
-
+                        {touch.comments && errors.comments && <div className="invalid-feedback">{errors.comments}</div>}    
 
                         <div className="input-group mb-2">
                             <span className="input-group-text"><i className="fa fa-clock-o fa-fw"></i></span>
@@ -329,7 +353,7 @@ function TourForm({ tour: tourToEdit = {} }) {
                             {touch.start && errors.start && <div className="invalid-feedback">{errors.start}</div>}
                         </div>
 
-                        <label htmlFor="hidden-new-files" className="ui icon button">
+                        <label htmlFor="hidden-new-files" className="ui icon button mt-3">
                             <i className="cloud icon"></i>
     Open File
   </label>
@@ -341,57 +365,49 @@ function TourForm({ tour: tourToEdit = {} }) {
                             header='Form Completed'
                             content="Tour finished!!"
                         />
-                        <Form.Input onClick={handleSubmit} color="secondary" control={Button}>Submit</Form.Input>
+                        <Form.Input onClick={handleSubmit} className= "mt-5" color="black" control={Button}>Submit</Form.Input>
                     </Form>
                 </Grid.Column>
                 </Grid.Row>
 
-                <Grid celled='internally'>
-                    <Grid />
+                                    
                     {!tour?.id ?
                         
-                            <div>
-                                <Grid.Column width={4}>
-                                    <Image size="small" src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                        <Grid.Row columns={3} >
+                                 <Grid.Column>
+                                    <Image centered size="big" src='https://react.semantic-ui.com/images/wireframe/image.png' />
 
+                                    </Grid.Column>
+                                                                
+                                    <Grid.Column>
+                                    <Image centered size="big" src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                                    </Grid.Column>
+                                    <Grid.Column>
+
+                               
+                                <Image centered size="big" src='https://react.semantic-ui.com/images/wireframe/image.png' />
                                 </Grid.Column>
-                                <Divider />
-
-                                <Grid.Column width={4}>
-                                    <Image size="small" src='https://react.semantic-ui.com/images/wireframe/image.png' />
-
-                                </Grid.Column   ><Divider />
-                                <Grid.Column width={4}>
-                                <Image size="small" src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                                </Grid.Column>
-                            </div>
+                       
+                    </Grid.Row>
                         
                         :
                         <div>
-                            <Image src={tour.images[0]} />
+                            <Image centered size="big" src={tour.images[0]} />
                             <Divider />
-                            <Image src={tour.images[1]} />
+                            <Image centered size="big" src={tour.images[1]} />
                             <Divider />
-                            <Image src={tour.images[2]} />
+                            <Image centered size="big" src={tour.images[2]} />
                         </div>
 
                     }
 
 
-
-
-
-
-
-                </Grid>
-
-
-
             </Grid>
-            </Container>
+   
     )
 }
 
 export default TourForm;
+
 
 

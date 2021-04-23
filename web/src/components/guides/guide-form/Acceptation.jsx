@@ -17,7 +17,7 @@ function Acceptation(props) {
   
       async function onClick(e) {
         e.preventDefault()
-        const id = user.id                           
+          const id = user?.id                           
           history.replace(`/users/${id}`)   
               }
   
@@ -28,17 +28,19 @@ function Acceptation(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Thank You!!!!
-            </Modal.Title>
+      <Modal.Header closeButton  className="mb-2">
+        Thank You  {user?.userName}
       </Modal.Header>
-      <Modal.Body>
+        <Modal.Title id="contained-modal-title-vcenter"  className="ms-3">
+        <i className="fa fa-thumbs-up me-3" aria-hidden="true" ></i>
+          If your License is Ok we will confirm your apply before 24 hours.
+            </Modal.Title>
+        <Modal.Body>
        
 
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onClick}>Close</Button>
+        <Button outline color="success" onClick={onClick}>Come on!!</Button>
       </Modal.Footer>
     </Modal>
 

@@ -26,7 +26,7 @@ function ConversationModal({ messages, userConversation }) {
   
   useEffect(() => {  
     
-    if ((user.id || user.guide.id) === messagesToRead[0].guide.id ) { 
+    if ((user?.id || user?.guide.id) === messagesToRead[0].guide.id ) { 
     async function readMessages() {
       
 
@@ -94,7 +94,7 @@ function ConversationModal({ messages, userConversation }) {
               <Feed>
                 <Feed.Event>
 
-                  {message.user.id === user.id
+                  {message.user.id === user?.id
 
 
                     ? <Feed.Label as='a'> <img src={user.avatar} alt="User avatar" /></Feed.Label>
@@ -103,10 +103,12 @@ function ConversationModal({ messages, userConversation }) {
                   <Feed.Content>
 
                     <Feed.Summary
+                    
                       date={<div>{moment(message.createdAt).startOf('hour').fromNow()}</div>}
 
 
-                      user={message.user.id === user.id
+                      user={message.user.id === user?.id
+
                         ? <Feed.User as='a'>{user.name || user.userName}</Feed.User>
                         : <Feed.User as='a'>{message.user.name || message.user.userName}</Feed.User>}
 

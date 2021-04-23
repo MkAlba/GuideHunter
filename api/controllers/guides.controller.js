@@ -12,7 +12,7 @@ module.exports.list = async (req, res, next) => {
         criteria = {
             $or:
                 [
-                    { name: new RegExp(search, 'i') },
+                    { name: new RegExp(search, 'i') },                   
                     { experience: new RegExp(search, 'i') }
                 ]
         }

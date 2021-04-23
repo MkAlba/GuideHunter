@@ -4,7 +4,7 @@ import guidesService from '../../../services/guides-service';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { AuthContext } from './../../contexts/AuthStore';
 import { MessageForm } from './../../messages/MessageForm';
-import { Container, Divider, Segment, Modal, Button, Header } from 'semantic-ui-react'
+import { Container, Divider, Segment, Modal, Button, Form } from 'semantic-ui-react'
 import { CarouselProvider, Image, Slide, Slider } from "pure-react-carousel";
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
@@ -23,6 +23,7 @@ function GuideDetail() {
   const [guide, setGuide] = useState()
   const [open, setOpen] = useState(false)
   const { isAuthenticated } = useContext(AuthContext)
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     //component didmount
@@ -92,48 +93,23 @@ console.log(guide)
                       <button className="btn btn-primary">Follow</button>
 
 
-                      <button className="btn btn-outline-primary">Message</button>
-                      <Modal
-    
-      isOpen= 'false'
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header  closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Login
-            </Modal.Title>
-      </Modal.Header>
-      <Modal.Body  >
-        
-
+                      <Button type="submit" color="outline-primary" block className="btn-social mt-3"
+              onClick={() => {
+                setModalShow(true);
+              }}>
+                        <span className="d-none d-sm-inline">Connect with customers!! </span></Button>
+            <MessageForm
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            
+            />
           
             
 
            
 
-            <Button type="submit" color="outline-primary" block className="btn-social mb-3">
-              <span className="d-none d-sm-inline">Login </span></Button>
-          
-
-          <hr data-content="OR" className="my-3 hr-text letter-spacing-2" />
-
-          <Button olor="outline-muted" block className="btn-social mb-3">
-            <i className="fa fa-google " />
-
-            <span className="d-none d-sm-inline"> Login with Google</span>
-          </Button>
-
-
-
-    
-
-      </Modal.Body>
-      <Modal.Footer>
-        <Button >Close</Button>
-      </Modal.Footer>
-    </Modal>
+            
+ 
 
 
 
@@ -204,7 +180,7 @@ console.log(guide)
 
           </div>
 
-          {guide.images.length != 0 && 
+         
           <Segment>
           <CarouselProvider
                 naturalSlideWidth={100}
@@ -226,7 +202,7 @@ console.log(guide)
                 <Divider />
                 <CustomDotGroup slides={3} />
               </CarouselProvider>
-              </Segment>}
+              </Segment>
 
           <div className="card">
 

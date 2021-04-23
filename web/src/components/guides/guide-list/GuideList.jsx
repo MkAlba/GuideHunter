@@ -108,7 +108,7 @@ function GuidesList({ minSearchChars }) {
     <Grid divided='vertically'>
 
       <Grid.Row columns={2}>
-        <Grid.Column
+        <Grid.Column 
 
           textAlign='center'>Select Languages
           <div className="col" className="mt-1">
@@ -128,8 +128,8 @@ function GuidesList({ minSearchChars }) {
           </div>
         </Grid.Column>
 
-        <Grid.Column
-          textAlign='center'>Select By Name
+        <Grid.Column 
+          textAlign='center'>Select By Name, Surname or Experience
           <div>
             <Filter className="mt-1" onSearch={handleSearch} loading={loading} />
           </div>

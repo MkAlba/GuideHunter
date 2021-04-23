@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import TourItem from './TourItem';
 import { list } from '../../services/tours-service';
 import Filter from './../Filter';
-import { Grid, Container, Header } from 'semantic-ui-react'
+import { Container, Header, Segment, Card, Checkbox } from 'semantic-ui-react'
+import { categories } from '../../constantsWeb'
 
 function ToursList({ minSearchChars }) {
 
@@ -11,12 +12,13 @@ function ToursList({ minSearchChars }) {
     loading: false
   });
   const [search, setSearch] = useState('');
+  const [category, setCategory] = useState([])
 
   useEffect(() => {
 
     async function fetchTours() {
 
-
+      console.log('aaaaaaaaaaa')
       const tours = await list(search);
 
 
@@ -42,34 +44,48 @@ function ToursList({ minSearchChars }) {
 
   const handleSearch = search => setSearch(search);
 
-  /*  ejemplo para buscar por fecha o otra cosa
-    useEffect(() => {
-  
-      async function fetchGuides() {
-  
-        const guides = await guidesService.list(null, languages);
-        if (!isUnmounted) {
-          setState({
-            guides: guides,
-            loading: false
-          })
-        }
-      }
-  
-      let isUnmounted = false;
-  
-      if (languages.length > 0) {
-        fetchGuides();
-      }
-  
-      return () => {
-  
-        isUnmounted = true;
-      }
-    }, [languages]);*/
 
+  useEffect(() => {
+
+    async function fetchTours() {
+
+      const tours = await list(null, category);
+      if (!isUnmounted) {
+        setState({
+          tours: tours,
+          loading: false
+        })
+      }
+    }
+
+    let isUnmounted = false;
+
+    if (category.length > 0) {
+      fetchTours();
+    }
+
+    return () => {
+
+      isUnmounted = true;
+    }
+  }, [category]);
+
+
+  const handleCategory = (event, result) => {
+console.log(event.target)
+    let {value}  =  result || event.target;
+    
+    const category = value
+    console.log(category)
+    setCategory(category)
+
+
+  }
+  
 
   const { tours, loading } = state;
+
+  console.log(state)
 
   return (
     <Container>
@@ -78,34 +94,58 @@ function ToursList({ minSearchChars }) {
         textAlign='center'>
         Tour List
         </Header>
-        <p  className="fs-5 text-center">Here is a selection of the best tours designed by the same guides who will take you on the tour.</p>
-      <Grid celled >
+      <p className="fs-5 text-center">Here is a selection of the best tours designed by the same guides who will take you on the tour.</p>
+      <Segment.Group horizontal>
+        <Segment>
 
-        <Grid.Row >
-          <Grid.Column width={3} >
-            <Filter className="mb-3 mt-4" onSearch={handleSearch} loading={loading} />
-            <Filter className="mb-3" onSearch={handleSearch} loading={loading} />
-          </Grid.Column>
 
-          <Grid.Column width={12}>
 
-            <div className="col mt-4">
 
-              {tours.map(tour => (
-                <div key={tour.id} >
-                  <TourItem tour={tour}
-                  />
-                </div>
-              ))}
+
+          {categories.map((category, i) => (
+            <div key={i}>
+
+              <Checkbox
+                name={category.name}
+                onClick={handleCategory}
+                value={category.name}
+               
+                label={category.displayValue}
+                className="mb-3 mt-4" 
+                onSearch={handleSearch} 
+                loading={loading}
+              />
+
             </div>
-
-          </Grid.Column>
-
-        </Grid.Row>
+          ))}
 
 
 
-      </Grid>
+          <Filter className="mb-3" onSearch={handleSearch} loading={loading} />
+
+
+        </Segment>
+
+        <Segment>
+
+          <Card.Group >
+            {tours.map(tour => (
+              <div key={tour.id} className="col mt-4" >
+
+                <TourItem tour={tour}
+                />
+              </div>
+
+
+            ))}
+          </Card.Group>
+
+
+        </Segment>
+
+
+
+      </Segment.Group>
     </Container>
   )
 }

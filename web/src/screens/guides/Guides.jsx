@@ -7,7 +7,7 @@ function Guides() {
 
   
   return (
-    <div className="team-boxed">
+    <div className="team-boxed " type="color" value="#ff0000">
     
         <GuidesList />
       </div>

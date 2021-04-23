@@ -2,10 +2,7 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../components/contexts/AuthStore';
 import { Link } from 'react-router-dom';
-import { Button, Icon, Label } from 'semantic-ui-react'
-
-
-
+import { Button, Icon, Label, Container } from 'semantic-ui-react'
 
 
 
@@ -13,20 +10,15 @@ function UsersProfile() {
 
 
     const { user } = useContext(AuthContext)
-    console.log(user)
-
-
-
-
-
 
     return (
+        <Container className="mb-5">
 
-        <div className="container">
+
             <div className="main-body">
 
-                <div className="row gutters-sm">
-                    <div className="col-md-4 mb-3">
+                <div className="row justify-content-around">
+                    <div className="col-md-3 mt-5 mb-3">
                         <div className="card">
                             <div className="card-body">
                                 <div className="d-flex flex-column align-items-center text-center">
@@ -50,11 +42,6 @@ function UsersProfile() {
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
 
-
-
-
-
-
                                     <Link
                                         to="/messages"
                                     >
@@ -74,13 +61,13 @@ function UsersProfile() {
 
 
                                         }}>
-                                        {user?.role === 'guide' &&  <>
-                                        <Icon
-                                        name="map"
-                                        size="large">
-                                        </Icon>
+                                        {user?.role === 'guide' && <>
+                                            <Icon
+                                                name="map"
+                                                size="large">
+                                            </Icon>
 
-                                        <span style={{justifyContent: "center"}}>Create a Tour?</span>
+                                            <span style={{ justifyContent: "center" }}>Create a Tour?</span>
                                         </>
                                         }
                                     </Link>
@@ -100,7 +87,7 @@ function UsersProfile() {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-md-7">
 
                         <h3 className="text-center">User Details</h3>
                         <div className="card mb-3">
@@ -137,31 +124,31 @@ function UsersProfile() {
                                         <h6 className="mb-0">Mobile</h6>
                                     </div>
                                     <div className="col-sm-9 text-secondary">
-                                        (320) 380-4539
+                                        {user?.phoneNumber ? 
+                                        
+                                            <p>{user.phoneNumber}</p> 
+                                            
+                                            :
+
+                                            <p>We recommend you to write your phone number before arriving date</p>
+
+                                        }
                                     </div>
                                 </div>
-                                <hr />
-                                <div className="row">
-                                    <div className="col-sm-3">
-                                        <h6 className="mb-0">Address</h6>
-                                    </div>
-                                    <div className="col-sm-9 text-secondary">
-                                        Bay Area, San Francisco, CA
-                                    </div>
-                                </div>
+
                             </div>
 
-
                         </div>
+
                         <Link
 
                             to={{
-                                pathname: `/form-user/${user.id}`,
+                                pathname: `/form-user/${user?.id}`,
                                 state: { user }
 
 
                             }}>
-                            <div className="text-center">
+                            <div className="text-center mt-5 ">
                                 <Button as='div' labelPosition='left'>
                                     <Button basic
                                         centered
@@ -180,7 +167,7 @@ function UsersProfile() {
                         {user?.role === 'guide' &&
 
                             <>
-                                <h3 className="text-center">Guide Details</h3>
+                                <h3 className="text-center mt-5">Guide Details</h3>
                                 <div className="card mb-3">
 
                                     <div className="card-body">
@@ -192,7 +179,7 @@ function UsersProfile() {
                                                 {user?.guide?.name}
                                             </div>
                                         </div>
-                                        
+
                                         <hr />
 
                                         <div className="row">
@@ -219,9 +206,9 @@ function UsersProfile() {
                                                 <h6 className="mb-0">Mobile</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                                {user?.guide?.telephone ? user?.guide?.telephone 
-                                                :
-                                                <p>We recommend you to update a PhoneNumber</p> }
+                                                {user?.guide?.phoneNumber ? user?.guide?.phoneNumber
+                                                    :
+                                                    <p>We recommend you to update a PhoneNumber</p>}
                                             </div>
                                         </div>
                                         <hr />
@@ -230,25 +217,17 @@ function UsersProfile() {
                                                 <h6 className="mb-0">Languages</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary">
-                                            {user?.guide.languages
-                          .map(language => (
-                            <li key={language} className="card-text">{language}</li>
-                          ))}
-                                    </div>
-                                        </div>
-                                        <hr />
-                                        <div className="row">
-                                            <div className="col-sm-3">
-                                                <h6 className="mb-0">Address</h6>
+                                                {user?.guide.languages
+                                                    .map(language => (
+                                                        <li key={language} className="card-text">{language}</li>
+                                                    ))}
                                             </div>
-                                            <div className="col-sm-9 text-secondary">
-                                                Bay Area, San Francisco, CA
-                                    </div>
                                         </div>
+
                                     </div>
                                 </div>
-                                <Link to={`/form-guide/${user.id}`}>
-                                    <div className="text-center">
+                                <Link to={`/form-guide/${user?.id}`}>
+                                    <div className="text-center mt-5">
                                         <Button
                                             as='div' labelPosition='left'>
                                             <Button basic
@@ -269,8 +248,10 @@ function UsersProfile() {
                     </div>
                 </div>
             </div>
-        </div>
+
+        </Container>
     )
+
 }
 
 export default UsersProfile

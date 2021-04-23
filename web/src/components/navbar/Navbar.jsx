@@ -24,7 +24,7 @@ function Navbar() {
 
   useEffect(() => {
 
-    if (user && user.id) {
+    if (user?.id) {
 
       async function fetchExistMessage() {
 
@@ -39,20 +39,20 @@ function Navbar() {
       fetchExistMessage()
 
       return () => {
-        // componentWillUnmount
+
         isUnmounted = true;
       }
     }
   }, [params])
 
 
-  console.log(oneMessage)
+
 
 
 
   async function handleLogout() {
     await logout()
-    onUserChange(undefined);
+    onUserChange(null);
     history.push('/home')
   }
 

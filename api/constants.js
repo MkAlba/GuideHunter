@@ -1,3 +1,3 @@
 module.exports = {
-    CATEGORY: ['modernism', 'gothic', 'gastronomic', 'Sea Side', 'Sport', 'Cultural', 'Museums','Family', 'City Center']
+    CATEGORY: ['modernism', 'gothic', 'gastronomic', 'sea Side', 'sport', 'cultural', 'museums','family', 'city center']
 }

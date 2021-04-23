@@ -25,13 +25,15 @@ function GuideItem({ name, surname, owner, email, createdAt, guideLicense, phone
     <Section className={`${user?.id ? 'border-info' : ''}`}>
       <Card
         color='brown'
+        as={Link}
+        to={`/guides/${id}`}
       >
 
         <Image className="rounded-circle" src={avatar} alt="Guide" wrapped ui={false} />
 
         <Card.Content>
           <Card.Header className="name mt-1 mb-1">{name} {surname}</Card.Header>
-          <Card.Meta className="mt-1 mb-1">GuideHunter since {moment(createdAt).format('YYYY')}
+          <Card.Description className="mt-1 mb-1">GuideHunter since {moment(createdAt).format('YYYY')}
 
             <Dropdown
               multiple
@@ -42,11 +44,8 @@ function GuideItem({ name, surname, owner, email, createdAt, guideLicense, phone
 
             <p className="title">Guide ID: {guideLicense}</p>
             <p className="experience">{experience.slice(0, experienceMaxChars)}...</p>
-
-            <Link to={`/guides/${id}`}>
-              <div className="social "><i className="fa fa-plus-square">More about me</i></div>
-            </Link>
-          </Card.Meta>
+            
+          </Card.Description>
         </Card.Content>
       </Card>
     </Section>
@@ -56,6 +55,6 @@ function GuideItem({ name, surname, owner, email, createdAt, guideLicense, phone
 
 GuideItem.defaultProps = {
   titleMaxWords: 4,
-  experienceMaxChars: 100
+  experienceMaxChars: 40
 }
 export default GuideItem;

@@ -1,12 +1,12 @@
 import http from './base-api-service';
 
-export const list = () => http.get('/tours')
+export const list = (search, category) => http.get('/tours', { params: { search, category } })
 
 export const detail = (id) => http.get(`/tours/${id}`)
 
 export const create = (tour) => {
 
-console.log(tour)
+
 const data = new FormData()
     Object.keys(tour).forEach(key => {
 

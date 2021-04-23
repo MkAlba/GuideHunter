@@ -14,9 +14,9 @@
         { name: "modernism", value: "modernism", show: false, displayValue: " Modernism" },
         { name: "gothic", value: "gothic", show: false, displayValue: " Gothic " },
         { name: "gastronomic", value: "gastronomic", show: false, displayValue: " Gastronomic " },
-        { name: "sea Side", value: "Sea Side", show: false, displayValue: " Sea Side" },
+        { name: "sea Side", value: "sea Side", show: false, displayValue: " Sea Side" },
         { name: "sport", value: "sport", show: false, displayValue: " Sort " },
-        { name: "Cultural", value: "Cultural", show: false, displayValue: " Cultural " },
+        { name: "cultural", value: "cultural", show: false, displayValue: " Cultural " },
         { name: "museums", value: "museums", show: false, displayValue: " Museums" },
         { name: "family", value: "family", show: false, displayValue: " Family " },
         { name: "city center", value: "city center", show: false, displayValue: " City center " }

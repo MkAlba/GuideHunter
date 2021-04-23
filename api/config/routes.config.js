@@ -43,7 +43,6 @@ router.put('/tours/:id', secure.isAuthenticated, checkRole.isGuide, storage.arra
 router.delete('/tours/:id', secure.isAuthenticated, checkRole.isGuide, storage.array('images', 3), tourController.delete); //secure.isAuthenticated,
 
 
-router.patch('/tours/upload-images', secure.isAuthenticated, tourController.uploadImages)
 
 
 router.get('/guides/:guideId/tours', tourController.listByGuide);

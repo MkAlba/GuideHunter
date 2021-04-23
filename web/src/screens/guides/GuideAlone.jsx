@@ -6,7 +6,7 @@ function GuideAlone(props) {
   const guideId = props.match.params.id
 
   return (
-    <Section >
+    <Section className="mb-4">
       <GuideDetail id={guideId} />
     </Section>
   );

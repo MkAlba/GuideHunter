@@ -11,14 +11,14 @@ const guideSchema = new Schema({
   name: {
     type: String,
     required: 'Name is required',
-    minLength: [3, 'Name needs at least 5 characters'],
+    minLength: [3, 'Name needs at least  characters'],
     trim: true,
   },
 
   surname: {
     type: String,
     required: 'Surname is required',
-    minLength: [3, 'Surname needs at least 5 characters'],
+    minLength: [3, 'Surname needs at least 3 characters'],
     trim: true,
   },
 

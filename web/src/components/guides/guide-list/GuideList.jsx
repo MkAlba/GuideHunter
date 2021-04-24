@@ -6,7 +6,7 @@ import Filter from './../../Filter';
 import { Dropdown, Grid, Container, Header } from 'semantic-ui-react';
 
 import { countryOptions } from '../../../constantsWeb'
-import Pagination from './../../Pagination';
+import Pagination from '../../../components/pagination/Pagination';
 
 
 
@@ -17,7 +17,7 @@ function GuidesList({ minSearchChars }) {
   const [state, setState] = useState({
     guides: [],
     loading: false,
-    
+
   });
 
   const [loadingGuides, setLoadingGuides] = useState(false);
@@ -31,20 +31,20 @@ function GuidesList({ minSearchChars }) {
 
   useEffect(() => {
 
-    const fetchPagedGuides = async () => { 
+    const fetchPagedGuides = async () => {
 
-      setLoadingGuides(true);    
-      
+      setLoadingGuides(true);
+
       const guides = await guidesService.list(search);
       if (!isUnmounted) {
         setState({
           guides: guides,
           loading: false
         })
-        setLoadingGuides(false); 
+        setLoadingGuides(false);
       }
-   
-  }
+
+    }
     let isUnmounted = false;
 
     if (search.length >= minSearchChars || search.length === 0) {
@@ -56,7 +56,7 @@ function GuidesList({ minSearchChars }) {
 
       isUnmounted = true;
     }
-  }, [search, minSearchChars ]);
+  }, [search, minSearchChars]);
 
 
 
@@ -91,14 +91,14 @@ function GuidesList({ minSearchChars }) {
   }, [languages]);
 
 
-  
+
 
 
   const handleLanguage = (event, result) => {
     let { value } = result || event.target;
 
     const languages = value
-  
+
     setLanguages(languages)
   }
 
@@ -111,20 +111,6 @@ function GuidesList({ minSearchChars }) {
 
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
- 
- 
- 
-  console.log(guides)
-  console.log(loadingGuides)
-  console.log(guidesPerPage)
-  console.log(indexOfLastGuide)
-  console.log(indexOfFirstGuide)
-  console.log(currentGuides);
-  
-  console.log(paginate)
-
-
-
 
   return (
     <Container>
@@ -173,27 +159,27 @@ function GuidesList({ minSearchChars }) {
             {currentGuides.map(guide => (
               <div key={guide.id} className="col mb-4">
                 <GuideItem {...guide}
-                
+
                 />
               </div>
             ))}
           </Grid.Row>
         </Grid.Row>
       </Grid>
-    
-      
-     
-      
-      
-      
-      
-      
+
+
+
+
+
+
+
+
       <Pagination
         guidesPerPage={guidesPerPage}
         totalGuides={guides.length}
         paginate={paginate}
       />
-      
+
 
     </Container>
   )

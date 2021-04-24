@@ -8,7 +8,7 @@ import {
 
 } from 'reactstrap';
 import { AuthContext } from './../../contexts/AuthStore';
-import { Dropdown, Container, Divider, Button, Image, Grid, Segment, Icon, Label } from "semantic-ui-react";
+import { Dropdown, Container, Divider, Button, Segment, Icon, Label } from "semantic-ui-react";
 
 import Acceptation from './Acceptation';
 
@@ -142,11 +142,12 @@ function GuideForm({ guide: guideToEdit = {} }) {
 
 
   const handleSubmit = async (event) => {
+    console.log('aaa')
 
     event.preventDefault();
 
 
-    if (isValid()) { 
+    if (isValid()) {
 
       try {
         const guideData = { ...state.guide };
@@ -193,7 +194,7 @@ function GuideForm({ guide: guideToEdit = {} }) {
   const isValid = () => {
 
     const { errors } = state;
-    console.log(errors)
+
     return !Object.keys(errors).some(error => errors[error]);
   }
 
@@ -397,31 +398,27 @@ function GuideForm({ guide: guideToEdit = {} }) {
 
           }
 
-          <Acceptation
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-          />
 
 
-          {guide.id &&
 
-            <Button
-              centered
-              inverted
-              style={{ textAlign: "center" }}
-              onClick={handleSubmit}
-              outline color="brown"
-              className="mt-5" >Update Profile</Button>
-          }
 
         </form>
 
+        {guide.id &&
 
+          <Button
+            centered
+            inverted
+            style={{ textAlign: "center" }}
+            onClick={handleSubmit}
+            outline color="brown"
+            className="mt-5" >Update Profile</Button>
+        }
 
 
       </div>
 
-      
+
     </Container>
 
   )

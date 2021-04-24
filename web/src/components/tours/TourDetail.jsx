@@ -43,7 +43,7 @@ function TourDetail(props) {
       try {
         const { id } = params;
         const tour = await detail(id);
-        console.log(tour)
+ 
 
         if (!isUnmounted) {
 

@@ -7,7 +7,7 @@ function Tours() {
 
   
   return (
-    <div className="team-boxed" >
+    <div  >
       
     
          

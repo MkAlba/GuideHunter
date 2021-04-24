@@ -1,10 +1,10 @@
-import {React, useEffect, useState} from 'react'
+import { React, useEffect, useState } from 'react'
 import { useContext } from 'react'
 import { Button, Icon, Feed, Image, Modal, Header, Divider } from 'semantic-ui-react'
 import { AuthContext } from '../contexts/AuthStore';
 import { MessageForm } from './MessageForm';
 import { Link, useHistory } from 'react-router-dom';
-import {update} from '../../services/messages-service'
+import { update } from '../../services/messages-service'
 
 const moment = require('moment');
 
@@ -12,57 +12,55 @@ const moment = require('moment');
 function ConversationModal({ messages, userConversation }) {
 
   const [open, setOpen] = useState(false)
-  const { user  } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const history = useHistory()
 
   const [messageToRead, setMessageToRead] = useState([])
 
   let messagesToRead = messages.filter(message => message.read_check === false)
 
-  console.log(messagesToRead)
-  console.log(user)
-
   //let messagesRead = messages.filter(message => message.read_check === true)
-  
-  useEffect(() => {  
-    
-    if ((user?.id || user?.guide.id) === messagesToRead[0].guide.id ) { 
-    async function readMessages() {
-      
 
-      try {       
-        
-         await messagesToRead.map(message => (
-          update(message)
+  useEffect(() => {
+
+    if ((user?.id || user?.guide.id) === messagesToRead[0]?.guide.id) {
+      async function readMessages() {
+
+
+        try {
+
+          await messagesToRead.map(message => (
+            update(message)
           ))
 
- 
 
-        if (!isUnmounted) {
 
-          setMessageToRead(messageToRead);
-        }
-      } catch (error) {
+          if (!isUnmounted) {
 
-        if (!isUnmounted) {
+            setMessageToRead(messageToRead);
+          }
+        } catch (error) {
 
-          if (error?.response?.status === 404) {
-            history.push('/messages');
-          } else {
-            console.error(error)
+          if (!isUnmounted) {
+
+            if (error?.response?.status === 404) {
+              history.push('/messages');
+            } else {
+              console.error(error)
+            }
           }
         }
       }
+
+      let isUnmounted = false;
+
+      readMessages();
+
+      return () => {
+
+        isUnmounted = true;
+      }
     }
-
-    let isUnmounted = false;
-
-    readMessages();
-
-    return () => {
-     
-      isUnmounted = true;
-    }}
   }, [])
 
 
@@ -70,7 +68,7 @@ function ConversationModal({ messages, userConversation }) {
   return (
     <Modal
       open={open}
-      
+
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       trigger={<Button
@@ -79,7 +77,7 @@ function ConversationModal({ messages, userConversation }) {
       </Button>}
     >
       <Modal.Header
-        >Profile Picture</Modal.Header>
+      >Profile Picture</Modal.Header>
       <Modal.Content image scrolling>
         <Image size='small' src={userConversation.avatar} wrapped />
 
@@ -103,7 +101,7 @@ function ConversationModal({ messages, userConversation }) {
                   <Feed.Content>
 
                     <Feed.Summary
-                    
+
                       date={<div>{moment(message.createdAt).startOf('hour').fromNow()}</div>}
 
 

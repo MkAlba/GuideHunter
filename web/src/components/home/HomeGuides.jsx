@@ -213,7 +213,7 @@ const HomeGuides = () => (
               Not on the Line!!
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-            only licensed guides can help you to skip the long lines in the famous monuments, saving you time, or to arrive to the places when they are less packed with big tour groups. Spend time enjoying the sight, not on the line!
+            Only licensed guides can help you to skip the long lines in the famous monuments, saving you time, or to arrive to the places when they are less packed with big tour groups. Spend time enjoying the sight, not on the line!
             </p>
           </Grid.Column>
           <Grid.Column floated='right' width={6}>
@@ -260,12 +260,10 @@ const HomeGuides = () => (
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Container text>
         <Header as='h3' style={{ fontSize: '2em' }}>
-          Breaking The Grid, Grabs Your Attention
+        Barcelona Private Tours
         </Header>
         <p style={{ fontSize: '1.33em' }}>
-          Instead of focusing on content creation and hard work, we have learned how to master the
-          art of doing nothing by providing massive amounts of whitespace and generic content that
-          can seem massive, monolithic and worth your attention.
+        Your personal guide will share the true stories and quiet secrets of Barcelona with you, rambling around La Rambla's side streets and squares that seem unchanged from many centuries ago, to shops where locals go for Catalan delicacies. Discover the cultural diversity of the city behind the sights, including Antoni Gaudi's astonishing architecture, for an authentic experience of the real city. Or get out of town to some of the fascinating attractions just a short drive from Barcelona.
         </p>
         <Button as='a' size='large'>
           Read More
@@ -281,12 +279,10 @@ const HomeGuides = () => (
         </Divider>
 
         <Header as='h3' style={{ fontSize: '2em' }}>
-          Did We Tell You About Our Bananas?
+          Live a different experience in Barcelona!!!
         </Header>
         <p style={{ fontSize: '1.33em' }}>
-          Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but
-          it's really true. It took years of gene splicing and combinatory DNA research, but our
-          bananas can really dance.
+        If you are an enthusiast of exclusively tailored experiences to enjoy on your own, you landed on the right spot. You just found a bunch of passionate enthusiasts of crafting them for you! Besides offering a private version of all our regular tours, we have also designed some wonderful day trip experiences to further wine regions for you and your party to enjoy in a fully exclusive manner.
         </p>
         <Button as='a' size='large'>
           I'm Still Quite Interested

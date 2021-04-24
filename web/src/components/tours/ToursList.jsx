@@ -4,6 +4,9 @@ import { list } from '../../services/tours-service';
 import Filter from './../Filter';
 import { Container, Header, Segment, Card, Checkbox } from 'semantic-ui-react'
 import { categories } from '../../constantsWeb'
+import PaginationTours from '../pagination/PaginationTours';
+
+
 
 function ToursList({ minSearchChars }) {
 
@@ -11,12 +14,18 @@ function ToursList({ minSearchChars }) {
     tours: [],
     loading: false
   });
+  const [loadingTours, setLoadingTours] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [toursPerPage, setToursPerPage] = useState(4);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState([])
 
   useEffect(() => {
 
-    async function fetchTours() {
+    const fetchPagedTours = async () => {
+
+
+      setLoadingTours(true);
 
       const tours = await list(search);
 
@@ -25,13 +34,15 @@ function ToursList({ minSearchChars }) {
           tours: tours,
           loading: false
         })
+        setLoadingTours(false);
       }
     }
 
     let isUnmounted = false;
 
     if (search.length >= minSearchChars || search.length === 0) {
-      fetchTours();
+      fetchPagedTours();
+      setLoadingTours(false);
     }
 
     return () => {
@@ -70,11 +81,11 @@ function ToursList({ minSearchChars }) {
 
 
   const handleCategory = (event, result) => {
-    console.log(event.target)
+
     let { value } = result || event.target;
 
     const category = value
-    console.log(category)
+
     setCategory(category)
 
 
@@ -83,7 +94,13 @@ function ToursList({ minSearchChars }) {
 
   const { tours, loading } = state;
 
-  console.log(state)
+  const indexOfLastTour = currentPage * toursPerPage;
+  const indexOfFirstTour = indexOfLastTour - toursPerPage;
+  const currentTours = tours.slice(indexOfFirstTour, indexOfLastTour);
+
+  // Change page
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
 
   return (
     <Container>
@@ -92,29 +109,31 @@ function ToursList({ minSearchChars }) {
         textAlign='center'>
         Tour List
         </Header>
-      <p className="fs-5 text-center">Here is a selection of the best tours designed by the same guides who will take you on the tour.</p>
+      <p className="fs-5 text-center">Here is a selection of the best tours designed by the same tours who will take you on the tour.</p>
       <Segment.Group horizontal>
         <Segment>
-          
-      
-        <Segment compact>
-          {categories.map((category, i) => (
-            <div key={i}>
 
-              <Checkbox
-             toggle
-                name={category.name}
-                onClick={handleCategory}
-                value={category.name}
 
-                label={category.displayValue}
-                className="mb-2 mt-1"
-                onSearch={handleSearch}
-                loading={loading}
-              />
+          <Segment
+          style={{ maxHeigth: 15 }}
+          >
+            {categories.map((category, i) => (
+              <div key={i}>
 
-            </div>
-          ))}
+                <Checkbox
+                  toggle
+                  name={category.name}
+                  onClick={handleCategory}
+                  value={category.name}
+
+                  label={category.displayValue}
+                  className="mb-2 mt-1"
+                  onSearch={handleSearch}
+                  loading={loading}
+                />
+
+              </div>
+            ))}
           </Segment>
 
 
@@ -129,7 +148,7 @@ function ToursList({ minSearchChars }) {
         <Segment>
 
           <Card.Group >
-            {tours.map(tour => (
+            {currentTours.map(tour => (
               <div key={tour.id} className="col mt-4" >
 
                 <TourItem tour={tour}
@@ -146,6 +165,16 @@ function ToursList({ minSearchChars }) {
 
 
       </Segment.Group>
+
+
+      <PaginationTours
+        className="mb-5"
+        toursPerPage={toursPerPage}
+        totalTours={tours.length}
+        paginate={paginate}
+      />
+
+
     </Container>
   )
 }

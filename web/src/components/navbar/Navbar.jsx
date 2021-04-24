@@ -21,7 +21,6 @@ function Navbar() {
   const [oneMessage, setOneMessage] = useState();
 
 
-
   useEffect(() => {
 
     if (user?.id) {
@@ -29,7 +28,7 @@ function Navbar() {
       async function fetchExistMessage() {
 
         let oneMessage = await detail()
-        console.log(oneMessage)
+        
         if (!isUnmounted) {
           setOneMessage(oneMessage);
         }
@@ -46,18 +45,11 @@ function Navbar() {
   }, [params])
 
 
-
-
-
-
   async function handleLogout() {
     await logout()
     onUserChange(null);
     history.push('/home')
   }
-
-
-
 
 
   return (

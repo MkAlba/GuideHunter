@@ -14,7 +14,6 @@ it('get all evlents', async (done) => {
     email: 'tomas33s@gmail.com',
     password: '987654321'
   })
-
   console.log(res)
 
   expect(res.headers['set-cookie'][0].includes('connect.sid')).toBe(true)

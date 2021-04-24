@@ -19,10 +19,11 @@ function Login(props) {
   const location = useLocation();
   const { onUserChange } = useContext(AuthContext);
 
-  console.log(location.state)
+
   const [data, setData] = useState({
     email: location.state?.email || '',
-    password: ''
+    password: '',
+
   })
 
   const [error, setError] = useState(null)
@@ -48,11 +49,13 @@ function Login(props) {
   }
 
   const socialLoginUrl = `${process.env.REACT_APP_API_BASE_URL}/authenticate/google`
-  const open = location.state?.show
+  
+  
+  
   return (
     <Modal
       {...props}
-      isOpen={location.state?.isOpen}
+     
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered

@@ -134,8 +134,6 @@ function RegisterForm() {
 
     const { password, password2 } = state.user;
 
-    console.log(password)
-    console.log(password2)
     if (password !== password2)
       return errors.password2 = "Password does not match"
 

@@ -24,7 +24,7 @@ const transport = nodemailer.createTransport({
 });
 
 
-module.exports.sendQuestionMail = (email, client, subject, day, hour, duration, service, business) => {
+/*module.exports.sendQuestionMail = (email, client, subject, day, hour, duration, service, business) => {
 
   console.log('enviant mail confirmacio ---------------------------')
   console.log(email)
@@ -51,7 +51,7 @@ module.exports.sendQuestionMail = (email, client, subject, day, hour, duration, 
     .then(() => { })
     .catch(console.error);
 };
-
+*/
 
 
 /*cron.schedule(' * * * * *', async (slots) => {

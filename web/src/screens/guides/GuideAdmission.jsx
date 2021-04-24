@@ -4,32 +4,32 @@ import Section from '../../components/section/section';
 
 
 function GuideAdmission(props) {
-  
 
-  if(props.location.state != null) { 
-    const guide = props.location.state.guide 
-    console.log(guide)
+
+  if (props.location.state != null) {
+    const guide = props.location.state.guide
+
     return (
 
-      <Section  title="">
-        <GuideForm guide ={guide} />
-      
-      
-    </Section>        
+      <Section title="">
+        <GuideForm guide={guide} />
+
+
+      </Section>
     );
-    
+
   } else {
     return (
 
       <Section title="">
-       
-      <GuideForm />
-      
-    </Section>        
+
+        <GuideForm />
+
+      </Section>
     );
 
   }
-          
+
 
 }
 

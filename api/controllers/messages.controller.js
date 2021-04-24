@@ -26,21 +26,17 @@ module.exports.message = (req, res, next) => {
 
 module.exports.oneMessage = (req, res, next) => {
 
-
   const userId = req.user.id
 
+    Message.findOne({
+    $and: [  
   
-
-  Message.findOne({
-    $and: [
-  
-    //  { user : userId},
-      { read_check: false },
+      { read_check: 'false' },
       { $or: [{ guide: userId }] }
     ]
   })
     .then(message => {
-console.log(message)
+
       if (message) res.json(true)
       else res.json(false)
     })
@@ -49,22 +45,19 @@ console.log(message)
 }
 
 
-
-
-
 module.exports.checkMessages = (req, res, next) => {
   const checkId = req.user.id
-  console.log(checkId)
+  
   Message.find({
     $and: [
 
-       { read_check: 'false' },
-      { $or: [{ guide: checkId }, { user: checkId }] }
+      { read_check: 'false' },
+       { $or: [{ guide: checkId }, { user: checkId }] }
     ]
   })
     .populate('user tour guide')
     .then(messages => {
-      const conversations = messages.reduce((conversations, message) => {
+      const conversations = messages.reduce((conversations, message) => {      
         const user = message.user.id === checkId ? message.guide : message.user;
         if (conversations[user.id]) {
           conversations[user.id].messages.push(message)
@@ -89,32 +82,13 @@ module.exports.checkMessages = (req, res, next) => {
 
 
 
-module.exports.read = (req, res, next) => {
-  
-  console.log(req.user.id)
-  console.log(req.params.id)
-  
+module.exports.readCheck = (req, res, next) => {
 
  
-
   Message.findByIdAndUpdate({ _id: req.params.id }, { read_check: true })
 
     .then(message => res.status(200).json(message))
     .catch(next);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

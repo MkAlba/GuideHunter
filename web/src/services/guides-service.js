@@ -6,8 +6,7 @@ const detail = (id) => http.get(`/guides/${id}`)
 
 
 const create = (guide) => {
-    console.log(guide)
-
+    console.log('fffffffffff')
     const data = new FormData()
 
     Object.keys(guide).forEach(key => {
@@ -58,8 +57,6 @@ const update = (guide) => {
         } else if (key === 'images') {
 
             Array.from(guide[key]).forEach(value => {
-
-                console.log(value)
 
                 data.append(`${key}`, value)
 

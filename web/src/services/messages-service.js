@@ -5,6 +5,7 @@ export const create = (message, userId, guideId) => http.post(`/message`, {messa
 export const list = () => http.get(`/messages`)
 
 
+
 export const detail = () => http.get(`/onemessage`)
 
 

@@ -64,7 +64,7 @@ router.delete('/users/:id', secure.isAuthenticated, storage.single({ name: 'avat
 
 // INTRANET - MESSAGES
 
-router.patch('/messages/:id/read', secure.isAuthenticated, messageController.read);
+router.patch('/messages/:id/read', secure.isAuthenticated, messageController.readCheck);
 
 
 
@@ -73,9 +73,6 @@ router.post('/message', secure.isAuthenticated, messageController.message);
 router.get('/onemessage', secure.isAuthenticated, messageController.oneMessage);
 
 router.get('/messages', secure.isAuthenticated, messageController.checkMessages);
-
-
-
 
 
 //REGISTER-LOGIN

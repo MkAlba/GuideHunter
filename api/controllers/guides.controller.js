@@ -47,7 +47,7 @@ module.exports.detail = (req, res, next) => {
 
 
 module.exports.create = (req, res, next) => {
-
+console.log('aaaaaaa')
     console.log(req.body)
 
         req.body.languages = typeof(req.body.languages) === Array ? req.body.languages : req.body.languages.split(',')

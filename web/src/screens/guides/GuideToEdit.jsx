@@ -20,9 +20,7 @@ function GuideEdit() {
         if (user?.id !== guide.id) {
           history.push('/403')
         } else {
-          // Prepare model for EventForm
-   
-        
+
           setGuide(guide);
         }
       }
@@ -34,7 +32,7 @@ function GuideEdit() {
       isUnmounted = true;
     }
   }, [params, history, user]);
-  
+
   if (!guide) {
     return null;
   }

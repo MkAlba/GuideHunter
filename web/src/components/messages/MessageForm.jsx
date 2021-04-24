@@ -46,16 +46,16 @@ export const MessageForm = (IdGuide) => {
 
   return (
     <div>
-      <Row className=" mb-4">
-        <Col  md={{ size: 6, offset: 3 }} className="text-center mb-4 mt-2">
-          {user && <h4>Message from {user.userName}</h4>}
+      <Row >
+        <Col  className="mt-4 mb-2 text-center">
+          {user && <h4>Any Message?</h4>}
         </Col>
       </Row>
       {user &&
         <Row >
           <Col  md={{ size: 10, offset: 1 }}>
 
-            <Form className="mt-4 mb-4">
+            <Form className=" text-center mt-2 mb-4">
               <FormGroup>
                 <Input
                   type="textarea"
@@ -68,7 +68,8 @@ export const MessageForm = (IdGuide) => {
                   placeholder="What's on your mind?"
                 ></Input>
               </FormGroup>
-              <Button onClick={sendMessage}>Submit</Button>
+              <Button className=" mt-4 mb-4 outline-secondary " onClick={sendMessage}>Send Message</Button>
+              
             </Form>
           </Col>
         </Row>}

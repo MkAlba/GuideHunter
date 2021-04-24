@@ -31,7 +31,7 @@ module.exports.create = (req, res, next) => {
 
 
 module.exports.list = (req, res, next) => {
-    console.log('aaaaaaaaaaa')
+   
     let criteria = {}
     const { search, category } = req.query;
     console.log(req.body)

@@ -18,9 +18,7 @@ function ToursList({ minSearchChars }) {
 
     async function fetchTours() {
 
-      console.log('aaaaaaaaaaa')
       const tours = await list(search);
-
 
       if (!isUnmounted) {
         setState({
@@ -72,16 +70,16 @@ function ToursList({ minSearchChars }) {
 
 
   const handleCategory = (event, result) => {
-console.log(event.target)
-    let {value}  =  result || event.target;
-    
+    console.log(event.target)
+    let { value } = result || event.target;
+
     const category = value
     console.log(category)
     setCategory(category)
 
 
   }
-  
+
 
   const { tours, loading } = state;
 
@@ -97,31 +95,33 @@ console.log(event.target)
       <p className="fs-5 text-center">Here is a selection of the best tours designed by the same guides who will take you on the tour.</p>
       <Segment.Group horizontal>
         <Segment>
-
-
-
-
-
+          
+      
+        <Segment compact>
           {categories.map((category, i) => (
             <div key={i}>
 
               <Checkbox
+             toggle
                 name={category.name}
                 onClick={handleCategory}
                 value={category.name}
-               
+
                 label={category.displayValue}
-                className="mb-3 mt-4" 
-                onSearch={handleSearch} 
+                className="mb-2 mt-1"
+                onSearch={handleSearch}
                 loading={loading}
               />
 
             </div>
           ))}
+          </Segment>
 
 
-
-          <Filter className="mb-3" onSearch={handleSearch} loading={loading} />
+          <Filter
+            className="mt-3"
+            onSearch={handleSearch}
+            loading={loading} />
 
 
         </Segment>

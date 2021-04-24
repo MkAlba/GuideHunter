@@ -141,20 +141,12 @@ function GuideForm({ guide: guideToEdit = {} }) {
   }
 
 
-  /* async function onClick(e) {
-     e.preventDefault()
-     const id = guide.id                           
-       history.replace(`/guides/${id}`)}
- */
-
-
-
   const handleSubmit = async (event) => {
 
     event.preventDefault();
 
 
-    if (isValid()) {  //si no hay errores entonces creamos al guía
+    if (isValid()) { 
 
       try {
         const guideData = { ...state.guide };
@@ -373,7 +365,6 @@ function GuideForm({ guide: guideToEdit = {} }) {
 
 
 
-
           <Divider className="mt-5" horizontal>Manage your Photos</Divider>
 
           <Segment
@@ -404,14 +395,7 @@ function GuideForm({ guide: guideToEdit = {} }) {
             </Button>
 
 
-
-
-
-
-
-
           }
-
 
           <Acceptation
             show={modalShow}
@@ -422,38 +406,22 @@ function GuideForm({ guide: guideToEdit = {} }) {
           {guide.id &&
 
             <Button
+              centered
+              inverted
               style={{ textAlign: "center" }}
               onClick={handleSubmit}
-              outline color="secondary"
+              outline color="brown"
               className="mt-5" >Update Profile</Button>
           }
 
         </form>
 
-        {guide?.id &&
 
-
-          guide.images
-            .map(image => (
-
-              <Image.Group size='small'>
-                <Grid.Column
-                  rows={3}
-                >
-                  <Grid.Row
-                  >
-                    <Image src={image} key={image}></Image>
-                  </Grid.Row>
-                </Grid.Column>
-              </Image.Group>
-
-            ))
-
-
-        }
 
 
       </div>
+
+      
     </Container>
 
   )

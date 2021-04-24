@@ -223,7 +223,6 @@ function TourForm({ tour: tourToEdit = {} }) {
     console.log(state)
 
     return (
-
   
             <Grid   
             columns={2}          

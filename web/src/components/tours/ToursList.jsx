@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import TourItem from './TourItem';
 import { list } from '../../services/tours-service';
 import Filter from './../Filter';
-import { Container, Header, Segment, Card, Checkbox } from 'semantic-ui-react'
+import { Header, Segment, Card, Checkbox, Grid } from 'semantic-ui-react'
 import { categories } from '../../constantsWeb'
 import PaginationTours from '../pagination/PaginationTours';
 
@@ -16,7 +16,7 @@ function ToursList({ minSearchChars }) {
   });
   const [loadingTours, setLoadingTours] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [toursPerPage, setToursPerPage] = useState(4);
+  const [toursPerPage, setToursPerPage] = useState(6);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState([])
 
@@ -103,79 +103,87 @@ function ToursList({ minSearchChars }) {
 
 
   return (
-    <Container>
-      <Header
-        size='huge'
-        textAlign='center'>
-        Tour List
+
+    <Grid centered columns={2}>
+
+      <Grid.Row>
+        <Header
+          size='huge'
+          textAlign='center'>
+          Tour List
         </Header>
-      <p className="fs-5 text-center">Here is a selection of the best tours designed by the same tours who will take you on the tour.</p>
-      <Segment.Group horizontal>
-        <Segment>
+        <p className="fs-5 text-center">Here is a selection of the best tours designed by the same tours who will take you on the tour.</p>
+
+        <Grid.Column width={3}>
 
 
-          <Segment
-          style={{ maxHeigth: 15 }}
-          >
-            {categories.map((category, i) => (
-              <div key={i}>
+          <Header as='h4'>Select a Category</Header>
+          {categories.map((category, i) => (
+            <div key={i}>
 
-                <Checkbox
-                  toggle
-                  name={category.name}
-                  onClick={handleCategory}
-                  value={category.name}
+              <Checkbox
 
-                  label={category.displayValue}
-                  className="mb-2 mt-1"
-                  onSearch={handleSearch}
-                  loading={loading}
-                />
+                toggle
+                name={category.name}
+                onClick={handleCategory}
+                value={category.name}
 
-              </div>
-            ))}
+                label={category.displayValue}
+                className="mb-2 mt-1"
+                onSearch={handleSearch}
+                loading={loading}
+              />
+
+            </div>
+          ))}
+
+
+          <div className="mt-5">
+            <Header as='h4'>Select by Text</Header>
+            <Filter
+              className="mt-3"
+              onSearch={handleSearch}
+              loading={loading} />
+
+          </div>
+
+        </Grid.Column >
+
+        <Grid.Column width={10}>
+          <Segment >
+
+            <Card.Group  className="ms-4 mb-2 ms-2" >
+              {currentTours.map(tour => (
+                <div key={tour.id} className="col mt-4 " >
+
+                  <TourItem tour={tour}
+                  />
+                </div>
+
+
+              ))}
+            </Card.Group>
+
+
           </Segment>
 
 
-          <Filter
-            className="mt-3"
-            onSearch={handleSearch}
-            loading={loading} />
-
-
-        </Segment>
-
-        <Segment>
-
-          <Card.Group >
-            {currentTours.map(tour => (
-              <div key={tour.id} className="col mt-4" >
-
-                <TourItem tour={tour}
-                />
-              </div>
-
-
-            ))}
-          </Card.Group>
-
-
-        </Segment>
 
 
 
-      </Segment.Group>
 
+          <PaginationTours
+            className="mb-5"
+            toursPerPage={toursPerPage}
+            totalTours={tours.length}
+            paginate={paginate}
+          />
 
-      <PaginationTours
-        className="mb-5"
-        toursPerPage={toursPerPage}
-        totalTours={tours.length}
-        paginate={paginate}
-      />
+        </Grid.Column>
+      </Grid.Row>
 
+    </Grid>
 
-    </Container>
   )
 }
 

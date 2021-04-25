@@ -35,6 +35,9 @@ function ConversationList() {
     }
         , [params])
 
+
+        console.log(conversations)
+
     return (
 
 

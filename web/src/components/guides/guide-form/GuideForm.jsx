@@ -380,6 +380,15 @@ function GuideForm({ guide: guideToEdit = {} }) {
               </div>
             </div>
           </Segment>
+
+
+
+          <Acceptation
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+          />
+
+          
           {!guide.id &&
             <Button
               as='div'

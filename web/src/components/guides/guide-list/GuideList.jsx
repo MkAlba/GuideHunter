@@ -22,7 +22,7 @@ function GuidesList({ minSearchChars }) {
 
   const [loadingGuides, setLoadingGuides] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [guidesPerPage, setGuidesPerPage] = useState(4);
+  const [guidesPerPage, setGuidesPerPage] = useState(6);
 
   const [search, setSearch] = useState('');
   const [languages, setLanguages] = useState([])

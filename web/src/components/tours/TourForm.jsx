@@ -268,7 +268,7 @@ function TourForm({ tour: tourToEdit = {} }) {
                                             name={item.name}
                                             onChange={(e, v) => handleItemClick(e, v, i)}
                                             value={item.show}
-                                            defaultChecked={item.show}
+                                            
                                             label={item.displayValue}
                                         />
                                     </div>

@@ -6,7 +6,7 @@ const detail = (id) => http.get(`/guides/${id}`)
 
 
 const create = (guide) => {
-    console.log('fffffffffff')
+    
     const data = new FormData()
 
     Object.keys(guide).forEach(key => {

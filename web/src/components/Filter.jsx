@@ -18,7 +18,7 @@ function Filter({ className, onSearch, loading }) {
           
           <input type="text" name="name"  className="form-control rounded" placeholder="Search by text..."
             value={search} onChange={handleChange} />
-            <span class="input-group-text border-0">
+            <span className="input-group-text border-0">
             <i className={`fa fa-${loading ? 'refresh fa-search': 'search'}` }></i>
           </span>
         </div>

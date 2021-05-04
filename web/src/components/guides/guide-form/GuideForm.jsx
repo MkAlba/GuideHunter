@@ -221,7 +221,7 @@ function GuideForm({ guide: guideToEdit = {} }) {
       <div className="container mt-4 ">
         {user?.role === 'user' &&
           <div className="row">
-            <div class="col">
+            <div className="col">
               <h5 className="fw-bolder" >How it works?</h5>
               <p>Fill this form and we will check that your Guide License is valid.</p>
               <p>Before 24 hours, you will receive and email confirming your request and...</p>

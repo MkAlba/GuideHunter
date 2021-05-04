@@ -37,7 +37,7 @@ function TourDetail(props) {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    //component didmount
+    
     async function fetchTour() {
 
       try {
@@ -66,7 +66,7 @@ function TourDetail(props) {
     fetchTour();
 
     return () => {
-      //la función que retorna es el component WillUnmount
+      
       isUnmounted = true;
     }
   }, [history, params])
@@ -126,7 +126,10 @@ function TourDetail(props) {
             </Segment> :
             
             
-            <MessageForm />
+            <MessageForm 
+            
+            guideId={tour.owner.id}
+            tourId={tour.id} />
             
             }
           </Grid.Column>

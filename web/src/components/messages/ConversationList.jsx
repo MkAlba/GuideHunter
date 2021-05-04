@@ -19,6 +19,8 @@ function ConversationList() {
         async function fetchConversations() {
 
             const conversations = await list()
+            console.log('qqqqqqqqq')
+            console.log(conversations)
 
             if (!isUnmounted) {
                 setConversations(conversations)

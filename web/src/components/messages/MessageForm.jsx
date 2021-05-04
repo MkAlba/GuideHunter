@@ -11,7 +11,7 @@ import { create } from "../../services/messages-service";
 
 export const MessageForm = (IdGuide) => {
 
-
+console.log(IdGuide)
 
   const { user } = useContext(AuthContext);
   
@@ -32,13 +32,17 @@ export const MessageForm = (IdGuide) => {
 
     let guideId = ''
 
-    if (IdGuide.id !== undefined) {
+   /* if (IdGuide.id !== undefined) {
       guideId = IdGuide
     }
-    else guideId = params
+    else guideId = params*/
+
+    guideId = IdGuide
+
+    const tourId = params
 
 
-    create(newMessage, user, guideId)
+    create(newMessage, user, guideId, tourId)
       .then(res => {
         setNewMessage(initialInputState);
       });

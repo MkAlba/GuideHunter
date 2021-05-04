@@ -1,0 +1,104 @@
+[{
+  "_id": {
+    "$oid": "606dbac0628d3e0fe0f7b05c"
+  },
+  "languages": [
+    "de",
+    "cn"
+  ],
+  "images": [
+    "https://res.cloudinary.com/dnbkitbqa/image/upload/v1619012787/GuidesHunter/desayuno%202.jpg-1619012786394.jpg"
+  ],
+  "ratingsNumber": 0,
+  "name": "carla2",
+  "surname": "carla2",
+  "guideLicense": 548547458,
+  "email": "carla@carla.com",
+  "phoneNumber": 444444,
+  "experience": "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. ",
+  "avatar": "https://res.cloudinary.com/dnbkitbqa/image/upload/v1619015043/GuidesHunter/arquitecto2.jpg-1619015042511.jpg",
+  "createdAt": {
+    "$date": "2021-04-09T09:57:12.846Z"
+  },
+  "updatedAt": {
+    "$date": "2021-04-21T14:24:04.946Z"
+  },
+  "__v": 8
+},{
+  "_id": {
+    "$oid": "607476e95be0033940132d51"
+  },
+  "languages": [
+    "cn",
+    "fr"
+  ],
+  "images": [],
+  "ratingsNumber": 0,
+  "name": "Marta",
+  "surname": "Marta",
+  "guideLicense": 875859541,
+  "email": "marta@marta.com",
+  "phoneNumber": 87454125,
+  "experience": "Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock,",
+  "avatar": "http://res.cloudinary.com/dnbkitbqa/image/upload/v1618245422/GuidesHunter/guia1.jfif-1618245422454.jpg",
+  "createdAt": {
+    "$date": "2021-04-12T16:37:03.670Z"
+  },
+  "updatedAt": {
+    "$date": "2021-04-12T16:37:03.670Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6075e19b2a6c883f8434fa21"
+  },
+  "languages": [
+    "fr,de"
+  ],
+  "images": [
+    "59-producto_large_92fb5485d7.jpg,balcoones.jpg"
+  ],
+  "ratingsNumber": 0,
+  "name": "bvbvcvcnb",
+  "surname": "vbnvbnvbnvbn",
+  "guideLicense": 12141514,
+  "email": "alba74@gmail.com",
+  "phoneNumber": 654984717,
+  "experience": "cvfvfffffffffffffffffffffffffffffffffffffffffffffff",
+  "avatar": "http://res.cloudinary.com/dnbkitbqa/image/upload/v1618923545/GuidesHunter/59-producto_large_92fb5485d7.jpg-1618923545315.jpg",
+  "createdAt": {
+    "$date": "2021-04-17T07:33:46.154Z"
+  },
+  "updatedAt": {
+    "$date": "2021-04-20T12:59:06.796Z"
+  },
+  "__v": 4
+},{
+  "_id": {
+    "$oid": "60804c0b57c8e31fe4d0cc01"
+  },
+  "languages": [
+    "cn",
+    "fr"
+  ],
+  "images": [
+    "https://res.cloudinary.com/dnbkitbqa/image/upload/v1619025810/GuidesHunter/callesestrecha2.jpg-1619025809268.jpg",
+    "https://res.cloudinary.com/dnbkitbqa/image/upload/v1619025810/GuidesHunter/home.jpg-1619025810117.jpg",
+    "https://res.cloudinary.com/dnbkitbqa/image/upload/v1619025811/GuidesHunter/jo-san-diego-IbDfOJEjq8Y-unsplash.jpg-1619025810881.jpg"
+  ],
+  "ratingsNumber": 0,
+  "name": "Charles",
+  "surname": "Barkley",
+  "guideLicense": 12141514,
+  "email": "cbarkley@gmail.com",
+  "phoneNumber": 874585574,
+  "experience": "Hello, I am Charles Barkley , a private tour guide in Barcelona and I can turn your time in our city into a great experience! Your happiness, my priority!\n\nI am local and this makes a big difference, I have lived a lot of changes in our city, and I can explain Barcelona´s life from a local approach. Explore and discover our culture, history and people by taking our private guided tours in Barcelona and our day tours outside the city .\n\nI have a wide experience as guides so we know how to optimize your time and to adapt the tour to your age, timing or special interest.\n\nI have the Official License as Barcelona Guides **, \n\nAnother of my passions is the wine world, I have been  sommelier certificate since 2009 and since then I have never stopped studying and tasting all the wines in Catalonia and in Spain.",
+  "avatar": "https://res.cloudinary.com/dnbkitbqa/image/upload/v1619023805/GuidesHunter/cbarkley.jpg-1619023804374.jpg",
+  "createdAt": {
+    "$date": "2021-04-21T16:50:06.027Z"
+  },
+  "updatedAt": {
+    "$date": "2021-04-21T17:23:33.489Z"
+  },
+  "__v": 1
+}]

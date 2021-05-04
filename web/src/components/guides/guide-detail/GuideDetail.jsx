@@ -120,7 +120,7 @@ function GuideDetail() {
                   <div className="card-body">
 
                     <div className="row">
-                      <h5 class="card-title fs-4 text-center">Personal Details</h5>
+                      <h5 className="card-title fs-4 text-center">Personal Details</h5>
                     </div>
                     <hr />
 

@@ -18,7 +18,7 @@ function ConversationModal({ messages, userConversation }) {
   const [messageToRead, setMessageToRead] = useState([])
 
   let messagesToRead = messages.filter(message => message.read_check === false)
-
+console.log(messagesToRead)
   //let messagesRead = messages.filter(message => message.read_check === true)
 
   useEffect(() => {
